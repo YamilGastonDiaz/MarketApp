@@ -16,7 +16,7 @@ namespace Negocio
             List<UnidadMedida> unidad = new List<UnidadMedida>();
             try
             {
-                datos.setearConsulta("SELECT * FROM UnidadesMedidas WHERE Estado = 1");
+                datos.setearConsulta("SELECT Unidad_id, Abreviatura, Descripcion FROM UnidadesMedidas WHERE Estado = 1");
                 datos.ejecutarRead();
 
                 while (datos.Lector.Read())

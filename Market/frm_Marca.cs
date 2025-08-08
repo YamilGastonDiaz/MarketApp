@@ -28,10 +28,10 @@ namespace Market
         {
             listar = negocioMarca.ListarMarca();
             dgv_Principal.DataSource = listar;
-            FormatoCategoria();
+            FormatoMarca();
         }
 
-        private void FormatoCategoria()
+        private void FormatoMarca()
         {
             dgv_Principal.Columns[0].Width = 100;
             dgv_Principal.Columns[0].HeaderText = "ID";
@@ -117,9 +117,9 @@ namespace Market
 
         private void btn_Guardar_Click(object sender, EventArgs e)
         {
-            string texto = txt_Marca_dc.Text.Trim();
+            string descripcion = txt_Marca_dc.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(txt_Marca_dc.Text))
+            if (string.IsNullOrWhiteSpace(descripcion))
             {
                 MessageBox.Show("Falta ingresar datos requerido (*)", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -127,13 +127,13 @@ namespace Market
             {
                 Marca marca = new Marca();
 
-                if(negocioMarca.ExisteMarca(texto))
+                if(negocioMarca.ExisteMarca(descripcion))
                 {
                     MessageBox.Show("Ya existe una categoría con esa descripción.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                marca.descripcion = texto;
+                marca.descripcion = descripcion;
 
                 if (editar)
                 {

@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frm_StockProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_StockProducto.Designer.cs">
+      <DependentUpon>frm_StockProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Producto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Producto.Designer.cs">
+      <DependentUpon>frm_Producto.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_UnidadMedida.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +78,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frm_StockProducto.resx">
+      <DependentUpon>frm_StockProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Producto.resx">
+      <DependentUpon>frm_Producto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_UnidadMedida.resx">
       <DependentUpon>frm_UnidadMedida.cs</DependentUpon>
     </EmbeddedResource>

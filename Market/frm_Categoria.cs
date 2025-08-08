@@ -117,9 +117,9 @@ namespace Market
 
         private void btn_Guardar_Click(object sender, EventArgs e)
         {
-            string texto = txt_Categira_dc.Text.Trim();
+            string descripcion = txt_Categira_dc.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(txt_Categira_dc.Text))
+            if (string.IsNullOrWhiteSpace(descripcion))
             {
                 MessageBox.Show("Falta ingresar datos requerido (*)", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -127,13 +127,13 @@ namespace Market
             {
                 Categoria categoria = new Categoria();
 
-                if(negocioCategoria.ExisteCategoria(texto))
+                if(negocioCategoria.ExisteCategoria(descripcion))
                 {
                     MessageBox.Show("Ya existe una categoría con esa descripción.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                categoria.descripcion = texto;
+                categoria.descripcion = descripcion;
 
                 if (editar)
                 {

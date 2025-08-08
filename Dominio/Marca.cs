@@ -16,5 +16,10 @@ namespace Dominio
             id = 0;
             descripcion = string.Empty;
         }
+
+        public override string ToString()
+        {
+            return descripcion;
+        }
     }
 }

@@ -18,5 +18,10 @@ namespace Dominio
             abreviatura = string.Empty;
             descripcion = string.Empty;
         }
+
+        public override string ToString()
+        {
+            return descripcion;
+        }
     }
 }

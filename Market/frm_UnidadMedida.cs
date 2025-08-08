@@ -28,10 +28,10 @@ namespace Market
         {
             listar = negocioUnidad.ListarUnidad();
             dgv_Principal.DataSource = listar;
-            FormatoCategoria();
+            FormatoUnidad();
         }
 
-        private void FormatoCategoria()
+        private void FormatoUnidad()
         {
             dgv_Principal.Columns[0].Width = 80;
             dgv_Principal.Columns[0].HeaderText = "ID";
@@ -66,7 +66,9 @@ namespace Market
             EstadoBtnPrincipales(false);
             EstadoBtnProcesos(true);
             txt_Medida_dc.Text = "";
+            txt_Abreviatura.Text = "";
             txt_Medida_dc.ReadOnly = false;
+            txt_Abreviatura.ReadOnly = false;
             tab_Principal.SelectedIndex = 1;
             txt_Medida_dc.Focus();
         }
@@ -122,9 +124,9 @@ namespace Market
         private void btn_Guardar_Click(object sender, EventArgs e)
         {
             string abreviatura = txt_Abreviatura.Text.Trim();
-            string medida = txt_Medida_dc.Text.Trim();
+            string descripcion = txt_Medida_dc.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(txt_Abreviatura.Text) || string.IsNullOrWhiteSpace(txt_Medida_dc.Text))
+            if (string.IsNullOrWhiteSpace(abreviatura) || string.IsNullOrWhiteSpace(descripcion))
             {
                 MessageBox.Show("Falta ingresar datos requerido (*)", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -132,14 +134,14 @@ namespace Market
             {
                 UnidadMedida unidad = new UnidadMedida();
 
-                if(negocioUnidad.ExisteUnidad(abreviatura, medida))
+                if(negocioUnidad.ExisteUnidad(abreviatura, descripcion))
                 {
                     MessageBox.Show("Ya existe una categoría con esa descripción.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 unidad.abreviatura = abreviatura;
-                unidad.descripcion = medida;
+                unidad.descripcion = descripcion;
 
                 if (editar)
                 {

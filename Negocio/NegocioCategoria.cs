@@ -17,7 +17,7 @@ namespace Negocio
             List<Categoria> categorias = new List<Categoria>();
             try
             {
-                datos.setearConsulta("SELECT * FROM Categorias WHERE Estado = 1");
+                datos.setearConsulta("SELECT Categoria_id, Descripcion FROM Categorias WHERE Estado = 1");
                 datos.ejecutarRead();
 
                 while (datos.Lector.Read())

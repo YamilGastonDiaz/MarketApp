@@ -16,7 +16,7 @@ namespace Negocio
             List<Marca> marcas = new List<Marca>();
             try
             {
-                datos.setearConsulta("SELECT * FROM Marcas WHERE Estado = 1");
+                datos.setearConsulta("SELECT Marca_id, Descripcion FROM Marcas WHERE Estado = 1");
                 datos.ejecutarRead();
 
                 while (datos.Lector.Read())
