@@ -27,5 +27,10 @@ namespace Dominio
             stock_min = 0;
             stock_max = 0;
         }
+
+        public override string ToString()
+        {
+            return descripcion;
+        }
     }
 }

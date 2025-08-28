@@ -44,8 +44,11 @@
   <ItemGroup>
     <Compile Include="ConexionDB.cs" />
     <Compile Include="NegocioCategoria.cs" />
+    <Compile Include="NegocioCompra.cs" />
+    <Compile Include="NegocioDetalleCompra.cs" />
     <Compile Include="NegocioMarca.cs" />
     <Compile Include="NegocioProducto.cs" />
+    <Compile Include="NegocioProveedor.cs" />
     <Compile Include="NegocioStockProducto.cs" />
     <Compile Include="NegocioUnidadMedida.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

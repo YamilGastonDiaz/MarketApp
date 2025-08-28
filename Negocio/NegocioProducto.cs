@@ -16,7 +16,7 @@ namespace Negocio
             List<Producto> productos = new List<Producto>();
             try
             {
-                datos.setearConsulta("SELECT p.Producto_id, p.CodigoBarras, c.Descripcion as Categoria, m.Descripcion as Marca, p.Descripcion, um.Descripcion as Medida, p.Stock_min, p.Stock_max \r\nFROM Productos as p\r\nINNER JOIN Categorias as c ON p.id_Categoria = c.Categoria_id\r\nINNER JOIN Marcas as m ON p.id_Marca = m.Marca_id\r\nINNER JOIN UnidadesMedidas as um ON p.id_Unidad = um.Unidad_id\r\nWHERE p.Estado = 1");
+                datos.setearConsulta("SELECT p.Producto_id, p.CodigoBarras, p.Descripcion, p.Stock_min, p.Stock_max, c.Categoria_id, c.Descripcion as Categoria, m.Marca_id, m.Descripcion as Marca, um.Unidad_id, um.Descripcion as Medida\r\nFROM Productos as p\r\nINNER JOIN Categorias as c ON p.id_Categoria = c.Categoria_id\r\nINNER JOIN Marcas as m ON p.id_Marca = m.Marca_id\r\nINNER JOIN UnidadesMedidas as um ON p.id_Unidad = um.Unidad_id\r\nWHERE p.Estado = 1;");
                 datos.ejecutarRead();
 
                 while (datos.Lector.Read())
@@ -24,16 +24,18 @@ namespace Negocio
                     Producto aux = new Producto();
                     aux.id = (int)datos.Lector["Producto_id"];
                     aux.codigoBarra = (string)datos.Lector["CodigoBarras"];
-                                    
+
+                    aux.categoria = new Categoria();
                     if (!(datos.Lector["Categoria"] is DBNull))
-                    {
-                        aux.categoria = new Categoria();               
+                    {                        
+                        aux.categoria.id = (int)datos.Lector["Categoria_id"];
                         aux.categoria.descripcion = (string)datos.Lector["Categoria"];
                     }
 
                     if (!(datos.Lector["Marca"] is DBNull))
                     {
                         aux.marca = new Marca();
+                        aux.marca.id = (int)datos.Lector["Marca_id"];
                         aux.marca.descripcion = (string)datos.Lector["Marca"];
                     }
 
@@ -42,6 +44,7 @@ namespace Negocio
                     if (!(datos.Lector["Medida"] is DBNull))
                     {
                         aux.unidad = new UnidadMedida();
+                        aux.unidad.id = (int)datos.Lector["Unidad_id"];
                         aux.unidad.descripcion = (string)datos.Lector["Medida"];
                     }
 
@@ -61,11 +64,13 @@ namespace Negocio
             }
             return productos;
         }
-        public void AgregarProducto(Producto producto)
+        public int AgregarProducto(Producto producto)
         {
+            int id = 0;
+
             try
             {
-                datos.setearConsulta("INSERT INTO Productos (CodigoBarras, id_Categoria, id_Marca, id_Unidad, Descripcion, Stock_min, Stock_max) VALUES (@CodigoBarras, @id_Categoria, @id_Marca, @id_Unidad, @Descripcion, @Stock_min, @Stock_max)");
+                datos.setearConsulta("INSERT INTO Productos (CodigoBarras, id_Categoria, id_Marca, id_Unidad, Descripcion, Stock_min, Stock_max) VALUES (@CodigoBarras, @id_Categoria, @id_Marca, @id_Unidad, @Descripcion, @Stock_min, @Stock_max) SELECT SCOPE_IDENTITY();");
                 datos.setearParametro("@CodigoBarras", producto.codigoBarra);
                 datos.setearParametro("@id_Categoria", producto.categoria.id);
                 datos.setearParametro("@id_Marca", producto.marca.id);
@@ -74,7 +79,7 @@ namespace Negocio
                 datos.setearParametro("@Stock_min", producto.stock_min);
                 datos.setearParametro("@Stock_max", producto.stock_max);
 
-                datos.ejecutarAccion();
+                id = datos.ejecutarScalar();
             }
             catch (Exception ex)
             {
@@ -84,6 +89,7 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+            return id;
         }
         public void ModificarProducto(Producto producto)
         {

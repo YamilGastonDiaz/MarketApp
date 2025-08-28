@@ -46,6 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frm_DetalleCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DetalleCompra.Designer.cs">
+      <DependentUpon>frm_DetalleCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Proveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Proveedor.Designer.cs">
+      <DependentUpon>frm_Proveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_EntradaProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_EntradaProducto.Designer.cs">
+      <DependentUpon>frm_EntradaProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_StockProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +96,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frm_DetalleCompra.resx">
+      <DependentUpon>frm_DetalleCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Proveedor.resx">
+      <DependentUpon>frm_Proveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_EntradaProducto.resx">
+      <DependentUpon>frm_EntradaProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_StockProducto.resx">
       <DependentUpon>frm_StockProducto.cs</DependentUpon>
     </EmbeddedResource>

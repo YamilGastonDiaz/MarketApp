@@ -16,7 +16,7 @@ namespace Market
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_Producto());
+            Application.Run(new frm_EntradaProducto());
         }
     }
 }
