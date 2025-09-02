@@ -22,6 +22,8 @@ namespace Market
         public frm_Proveedor()
         {
             InitializeComponent();
+            txt_Cuit.KeyPress += SoloNumeros_KeyPress;
+            txt_Telefono.KeyPress += SoloNumeros_KeyPress;
         }
 
         private void CargarLista()
@@ -208,6 +210,14 @@ namespace Market
             EstadoBtnPrincipales(true);
             EstadoBtnProcesos(false);
             tab_Principal.SelectedIndex = 0;
-        }   
+        }
+
+        private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

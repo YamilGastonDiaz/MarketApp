@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Configuration;
-using Microsoft.SqlServer.Server;
 
 namespace Negocio
 {
@@ -40,6 +41,13 @@ namespace Negocio
             command.Parameters.Clear();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = SP;
+        }
+        public void setearParametroTabla(string nombre, DataTable tabla) ///ver luego
+        {
+            SqlParameter param = new SqlParameter(nombre, SqlDbType.Structured);
+            param.TypeName = "dbo.DetalleCompraType";
+            param.Value = tabla;
+            command.Parameters.Add(param);
         }
         public void ejecutarAccion()
         {

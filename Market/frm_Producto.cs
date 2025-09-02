@@ -36,6 +36,8 @@ namespace Market
         public frm_Producto()
         {
             InitializeComponent();
+            txt_Stockmin.KeyPress += SoloNumeros_KeyPress;
+            txt_CodigoBarra.KeyPress += SoloNumeros_KeyPress;
         }
 
         private void CargarLista()
@@ -56,12 +58,10 @@ namespace Market
             dgv_Principal.Columns[3].HeaderText = "MARCA";
             dgv_Principal.Columns[4].Width = 100;
             dgv_Principal.Columns[4].HeaderText = "MEDIDA";
-            dgv_Principal.Columns[5].Width = 250;
+            dgv_Principal.Columns[5].Width = 300;
             dgv_Principal.Columns[5].HeaderText = "DESCRIPCION";
-            dgv_Principal.Columns[6].Width = 100;
+            dgv_Principal.Columns[6].Width = 120;
             dgv_Principal.Columns[6].HeaderText = "STOCK MIN";
-            dgv_Principal.Columns[7].Width = 120;
-            dgv_Principal.Columns[7].HeaderText = "STOCK MAX";
         }
 
         private void EstadoBtnPrincipales(bool estado)
@@ -95,7 +95,6 @@ namespace Market
             txt_CodigoBarra.ReadOnly = false;
             txt_Producto_dc.ReadOnly = false;
             txt_Stockmin.ReadOnly = false;
-            txt_Stockmax.ReadOnly = false;
             tab_Principal.SelectedIndex = 1;
             txt_Producto_dc.Focus();
         }
@@ -109,7 +108,6 @@ namespace Market
                 txt_CodigoBarra.Text = seleccionada.codigoBarra;
                 txt_Producto_dc.Text = seleccionada.descripcion;
                 txt_Stockmin.Text = seleccionada.stock_min.ToString();
-                txt_Stockmax.Text = seleccionada.stock_max.ToString();
                 txt_Categoria.Text = seleccionada.categoria.descripcion;
                 txt_Marca.Text = seleccionada.marca.descripcion;
                 txt_Medida.Text = seleccionada.unidad.descripcion;
@@ -121,8 +119,7 @@ namespace Market
                 txt_CodigoBarra.ReadOnly = false;
                 txt_Producto_dc.ReadOnly = false;
                 txt_Stockmin.ReadOnly = false;
-                txt_Stockmax.ReadOnly = false;
-                              
+
                 tab_Principal.SelectedIndex = 1;
 
                 editar = true;
@@ -153,10 +150,17 @@ namespace Market
                     Producto seleccionada = (Producto)dgv_Principal.CurrentRow.DataBoundItem;
                     int idEliminar = seleccionada.id;
 
-                    negocioProducto.EliminarProducto(idEliminar);
+                    if (!negocioStock.HayStock(idEliminar))
+                    {
+                        negocioProducto.EliminarProducto(idEliminar);
 
-                    MessageBox.Show("Producto eliminado correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarLista();
+                        MessageBox.Show("Producto eliminado correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarLista();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede eliminar el producto porque tiene stock asociado.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -165,31 +169,28 @@ namespace Market
         {
             string cogo_barra = txt_CodigoBarra.Text.Trim();
             string stock_min = txt_Stockmin.Text.Trim();
-            string stock_max = txt_Stockmax.Text.Trim();
             string descripcion = txt_Producto_dc.Text.Trim();
 
-           
-                        
-            if (!decimal.TryParse(stock_min, out decimal stockMinDecimal) ||
-                !decimal.TryParse(stock_max, out decimal stockMaxDecimal))
+
+
+            if (!decimal.TryParse(stock_min, out decimal stockMinDecimal))
             {
                 MessageBox.Show("Stock mínimo y máximo deben ser números válidos.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(cogo_barra) || string.IsNullOrWhiteSpace(descripcion) || string.IsNullOrWhiteSpace(stock_min) || string.IsNullOrWhiteSpace(stock_max) || string.IsNullOrWhiteSpace(txt_Categoria.Text) ||
+            if (string.IsNullOrWhiteSpace(cogo_barra) || string.IsNullOrWhiteSpace(descripcion) || string.IsNullOrWhiteSpace(stock_min) || string.IsNullOrWhiteSpace(txt_Categoria.Text) ||
                  string.IsNullOrWhiteSpace(txt_Marca.Text) || string.IsNullOrWhiteSpace(txt_Medida.Text))
             {
                 MessageBox.Show("Falta ingresar datos requerido (*)", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else 
+            else
             {
                 Producto producto = new Producto();
 
                 producto.codigoBarra = cogo_barra;
                 producto.descripcion = descripcion;
                 producto.stock_min = decimal.Parse(stock_min);
-                producto.stock_max = decimal.Parse(stock_max);
                 producto.categoria.id = categoriaSeleccionadaId;
                 producto.marca.id = marcaSeleccionadaId;
                 producto.unidad.id = medidaSeleccionadaId;
@@ -206,21 +207,19 @@ namespace Market
                     negocioStock.AgregarStockProducto(id, stock, precioD, precioN);
                     MessageBox.Show("Los datos han sido guardados correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                    
+
                 CargarLista();
                 EstadoBtnPrincipales(true);
                 EstadoBtnProcesos(false);
                 txt_CodigoBarra.Text = "";
                 txt_Producto_dc.Text = "";
                 txt_Stockmin.Text = "";
-                txt_Stockmax.Text = "";
                 txt_Categoria.Text = "";
                 txt_Marca.Text = "";
                 txt_Medida.Text = "";
                 txt_CodigoBarra.ReadOnly = true;
                 txt_Producto_dc.ReadOnly = true;
                 txt_Stockmin.ReadOnly = true;
-                txt_Stockmax.ReadOnly = true;
                 categoriaSeleccionadaId = 0;
                 marcaSeleccionadaId = 0;
                 medidaSeleccionadaId = 0;
@@ -236,14 +235,12 @@ namespace Market
             txt_CodigoBarra.Text = "";
             txt_Producto_dc.Text = "";
             txt_Stockmin.Text = "";
-            txt_Stockmax.Text = "";
             txt_Categoria.Text = "";
             txt_Marca.Text = "";
             txt_Medida.Text = "";
-            txt_CodigoBarra.ReadOnly = true; 
+            txt_CodigoBarra.ReadOnly = true;
             txt_Producto_dc.ReadOnly = true;
             txt_Stockmin.ReadOnly = true;
-            txt_Stockmax.ReadOnly = true;
             EstadoBtnPrincipales(true);
             EstadoBtnProcesos(false);
             tab_Principal.SelectedIndex = 0;
@@ -391,6 +388,14 @@ namespace Market
         private void btn_RetornarUM_Click(object sender, EventArgs e)
         {
             pnl_ListadoUM.Visible = false;
+        }
+
+        private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

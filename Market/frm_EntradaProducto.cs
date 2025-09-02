@@ -24,7 +24,7 @@ namespace Market
         private List<Producto> listar;
         private List<Proveedor> proveedorLista;
         private List<Compra> compraLista;
-        private int proveedorSeleccionadaId = 0;
+        private int proveedorSeleccionadoId = 0;
 
         public frm_EntradaProducto()
         {
@@ -42,7 +42,7 @@ namespace Market
         {
             dgv_Principal.Columns[0].Width = 100;
             dgv_Principal.Columns[0].HeaderText = "ID";
-            dgv_Principal.Columns[1].Width = 250;
+            dgv_Principal.Columns[1].Width = 280;
             dgv_Principal.Columns[1].HeaderText = "PROVEEDOR";
             dgv_Principal.Columns[2].Width = 150;
             dgv_Principal.Columns[2].HeaderText = "FECHA";
@@ -100,12 +100,12 @@ namespace Market
 
                 if (opcion == DialogResult.Yes)
                 {
-                    Categoria seleccionada = (Categoria)dgv_Principal.CurrentRow.DataBoundItem;
+                    Compra seleccionada = (Compra)dgv_Principal.CurrentRow.DataBoundItem;
                     int idEliminar = seleccionada.id;
 
-                    negocioProducto.EliminarProducto(idEliminar);
+                    negocioCompra.EliminarCompra(idEliminar);
 
-                    MessageBox.Show("Categoría eliminada correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Compra eliminada correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarLista();
                 }
             }
@@ -115,9 +115,10 @@ namespace Market
         {
             string descripcion = txt_Proveedor.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(descripcion))
+            if (string.IsNullOrWhiteSpace(descripcion) || proveedorSeleccionadoId == 0)
             {
                 MessageBox.Show("Falta ingresar datos requerido (*)", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             if (TablaDetalle.Rows.Count == 0)
@@ -134,18 +135,17 @@ namespace Market
 
             Compra compra = new Compra();
             compra.proveedor = new Proveedor();
-            compra.proveedor.id = proveedorSeleccionadaId;
+            compra.proveedor.id = proveedorSeleccionadoId;
             compra.fecha = dtp_Fecha.Value;
             compra.precioTotal = Convert.ToDecimal(txt_Total.Text);
 
-            int idCompra = negocioCompra.AgregarCompra(compra);
+            DataTable tablaSP = ConvertirTablaParaSP(TablaDetalle);
+            int idCompra = negocioCompra.AgregarCompraConDetalles(compra, tablaSP);
 
-            negocioDetalle.AgregarDetalle(idCompra, TablaDetalle);
+            MessageBox.Show("Compra registrada correctamente con ID: " + idCompra, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            negocioStock.AgregarStockActual(TablaDetalle);
 
-            MessageBox.Show("Compra registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            TablaDetalle.Clear();
             CargarLista();
             EstadoBtnPrincipales(true);
             EstadoBtnProcesos(false);
@@ -153,6 +153,29 @@ namespace Market
             txt_Proveedor.ReadOnly = true;
 
             tab_Principal.SelectedIndex = 0;
+        }
+
+        private DataTable ConvertirTablaParaSP(DataTable tablaDetalle)
+        {
+            DataTable tablaSP = new DataTable();
+            tablaSP.Columns.Add("id_Producto", typeof(int));
+            tablaSP.Columns.Add("id_Marca", typeof(int));
+            tablaSP.Columns.Add("Cantidad", typeof(decimal));
+            tablaSP.Columns.Add("PrecioCompra", typeof(decimal));
+            tablaSP.Columns.Add("Subtotal", typeof(decimal));
+
+            foreach (DataRow fila in tablaDetalle.Rows)
+            {
+                int idProducto = Convert.ToInt32(fila["id_Producto"]);
+                int idMarca = Convert.ToInt32(fila["id_Marca"]);
+                decimal cantidad = Convert.ToDecimal(fila["Cantidad"]);
+                decimal precio = Convert.ToDecimal(fila["PrecioCompra"]);
+                decimal subtotal = Convert.ToDecimal(fila["Subtotal"]);
+
+                tablaSP.Rows.Add(idProducto, idMarca, cantidad, precio, subtotal);
+            }
+
+            return tablaSP;
         }
 
         private void btn_Cancelar_Click(object sender, EventArgs e)
@@ -192,7 +215,7 @@ namespace Market
         {
             TablaDetalle = new DataTable("TablaDetalle");
 
-            TablaDetalle.Columns.Add("id", typeof(int));
+            TablaDetalle.Columns.Add("id_Producto", typeof(int));
             TablaDetalle.Columns.Add("descripcion_P", typeof(string));
             TablaDetalle.Columns.Add("id_Marca", typeof(string));
             TablaDetalle.Columns.Add("descripcion_M", typeof(string));
@@ -206,16 +229,16 @@ namespace Market
 
         private void FormatoDetalle()
         {
-            dgv_ListaDetalle.Columns["id"].Visible = false;
+            dgv_ListaDetalle.Columns["id_Producto"].Visible = false;
             dgv_ListaDetalle.Columns["id_Marca"].Visible = false;
 
-            dgv_ListaDetalle.Columns["descripcion_P"].Width = 330;
+            dgv_ListaDetalle.Columns["descripcion_P"].Width = 320;
             dgv_ListaDetalle.Columns["descripcion_P"].HeaderText = "PRODUCTO";
             dgv_ListaDetalle.Columns["descripcion_M"].Width = 200;
             dgv_ListaDetalle.Columns["descripcion_M"].HeaderText = "MARCA";
             dgv_ListaDetalle.Columns["Cantidad"].Width = 100;
             dgv_ListaDetalle.Columns["Cantidad"].HeaderText = "CANTIDAD";
-            dgv_ListaDetalle.Columns["PrecioCompra"].Width = 150;
+            dgv_ListaDetalle.Columns["PrecioCompra"].Width = 160;
             dgv_ListaDetalle.Columns["PrecioCompra"].HeaderText = "PRECIO COMPRA";
             dgv_ListaDetalle.Columns["Subtotal"].Width = 150;
             dgv_ListaDetalle.Columns["Subtotal"].HeaderText = "SUBTOTAL";
@@ -230,7 +253,7 @@ namespace Market
         private void AgregarItem(Producto producto, Marca marca, decimal cantidad, decimal precioCompra, decimal subTotal)
         {
             DataRow fila = TablaDetalle.NewRow();
-            fila["id"] = producto.id;
+            fila["id_Producto"] = producto.id;
             fila["descripcion_P"] = producto.descripcion;
             fila["id_Marca"] = marca.id;
             fila["descripcion_M"] = marca.descripcion;
@@ -270,7 +293,7 @@ namespace Market
             }
             else
             {
-                proveedorSeleccionadaId = Convert.ToInt32(dgv_Proveedor.CurrentRow.Cells[0].Value);
+                proveedorSeleccionadoId = Convert.ToInt32(dgv_Proveedor.CurrentRow.Cells[0].Value);
                 txt_Proveedor.Text = Convert.ToString(dgv_Proveedor.CurrentRow.Cells[1].Value);
             }
         }
@@ -308,7 +331,6 @@ namespace Market
                 idUnidad = p.unidad.id,
                 descripcion = p.descripcion,
                 stock_min = p.stock_min,
-                stock_max = p.stock_max
             }).ToList();
 
             dgv_Producto.DataSource = listaMostrar;
@@ -324,7 +346,6 @@ namespace Market
             dgv_Producto.Columns["idMarca"].Visible = false;
             dgv_Producto.Columns["idUnidad"].Visible = false;
             dgv_Producto.Columns["stock_min"].Visible = false;
-            dgv_Producto.Columns["stock_max"].Visible = false;
 
             dgv_Producto.Columns["categoria"].Width = 200;
             dgv_Producto.Columns["categoria"].HeaderText = "CATEGORIA";
@@ -356,7 +377,7 @@ namespace Market
 
                 foreach (DataRow fila in TablaDetalle.Rows)
                 {
-                    if (Convert.ToInt32(fila["id"]) == producto.id)
+                    if (Convert.ToInt32(fila["id_Producto"]) == producto.id)
                     {
                         agregar = false;
                         MessageBox.Show("El producto ya se encuentra agregado", "Aviso del Sistema");
@@ -435,6 +456,40 @@ namespace Market
                     CalcularTotalDetalle();
                 }
             }
+        }
+
+        private void dgv_ListaDetalle_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (dgv_ListaDetalle.CurrentCell.ColumnIndex == 4 ||
+                dgv_ListaDetalle.CurrentCell.ColumnIndex == 5)
+            {
+                TextBox txt = e.Control as TextBox;
+                if (txt != null)
+                {
+                    txt.KeyPress -= new KeyPressEventHandler(SoloNumeros_KeyPress);
+                    txt.KeyPress += new KeyPressEventHandler(SoloNumeros_KeyPress);
+                }
+            }
+        }
+
+        private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            TextBox txt = sender as TextBox;
+            if (e.KeyChar == ',' && txt.Text.Contains(","))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dgv_ListaDetalle_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("Ingrese solo valores numéricos en esta columna.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            e.Cancel = true;
         }
     }
 }

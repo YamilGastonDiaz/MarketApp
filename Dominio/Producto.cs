@@ -15,7 +15,6 @@ namespace Dominio
         public UnidadMedida unidad { get; set;}
         public string descripcion { get; set; }
         public decimal stock_min { get; set; }
-        public decimal stock_max { get; set; }
 
         public Producto() 
         {
@@ -25,7 +24,6 @@ namespace Dominio
             unidad = new UnidadMedida();
             descripcion = string.Empty;
             stock_min = 0;
-            stock_max = 0;
         }
 
         public override string ToString()

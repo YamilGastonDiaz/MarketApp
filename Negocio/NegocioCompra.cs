@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,16 +47,17 @@ namespace Negocio
             }
             return compra;
         }
-        public int AgregarCompra(Compra compra)
+
+        public int AgregarCompraConDetalles(Compra compra, DataTable detalles)
         {
             int id = 0;
-
             try
             {
-                datos.setearConsulta("INSERT INTO Compras (id_Proveedor, Fecha, Total_importe) VALUES (@id_Proveedor, @Fecha, @Total_importe) SELECT SCOPE_IDENTITY();");
-                datos.setearParametro("@id_Proveedor", compra.proveedor.id);
+                datos.setearProcedure("AgregarCompraConDetalles");
+                datos.setearParametro("@idProveedor", compra.proveedor.id);
                 datos.setearParametro("@Fecha", compra.fecha);
-                datos.setearParametro("@Total_importe", compra.precioTotal);
+                datos.setearParametro("@Total", compra.precioTotal);
+                datos.setearParametroTabla("@Detalles", detalles);
 
                 id = datos.ejecutarScalar();
             }
@@ -67,8 +69,25 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-
             return id;
+        }
+
+        public void EliminarCompra(int idCompra)
+        {
+            try
+            {
+                datos.setearProcedure("EliminarCompra");
+                datos.setearParametro("@idCompra", idCompra);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Market
         {
             dgv_Principal.Columns[0].Width = 100;
             dgv_Principal.Columns[0].HeaderText = "ID";
-            dgv_Principal.Columns[1].Width = 300;
+            dgv_Principal.Columns[1].Width = 380;
             dgv_Principal.Columns[1].HeaderText = "MARCAS";
         }
 

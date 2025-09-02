@@ -18,6 +18,8 @@ namespace Market
         public frm_StockProducto(Producto producto)
         {
             InitializeComponent();
+            txt_PrecioD.KeyPress += SoloNumeros_KeyPress;
+            txt_PrecioN.KeyPress += SoloNumeros_KeyPress;
             productoSeleccionado = producto;
         }
 
@@ -69,6 +71,20 @@ namespace Market
         private void btn_Cancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            TextBox txt = sender as TextBox;
+            if (e.KeyChar == ',' && txt.Text.Contains(","))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

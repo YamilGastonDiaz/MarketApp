@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Negocio
             List<Producto> productos = new List<Producto>();
             try
             {
-                datos.setearConsulta("SELECT p.Producto_id, p.CodigoBarras, p.Descripcion, p.Stock_min, p.Stock_max, c.Categoria_id, c.Descripcion as Categoria, m.Marca_id, m.Descripcion as Marca, um.Unidad_id, um.Descripcion as Medida\r\nFROM Productos as p\r\nINNER JOIN Categorias as c ON p.id_Categoria = c.Categoria_id\r\nINNER JOIN Marcas as m ON p.id_Marca = m.Marca_id\r\nINNER JOIN UnidadesMedidas as um ON p.id_Unidad = um.Unidad_id\r\nWHERE p.Estado = 1;");
+                datos.setearConsulta("SELECT p.Producto_id, p.CodigoBarras, p.Descripcion, p.Stock_min, c.Categoria_id, c.Descripcion as Categoria, m.Marca_id, m.Descripcion as Marca, um.Unidad_id, um.Descripcion as Medida\r\nFROM Productos as p\r\nINNER JOIN Categorias as c ON p.id_Categoria = c.Categoria_id\r\nINNER JOIN Marcas as m ON p.id_Marca = m.Marca_id\r\nINNER JOIN UnidadesMedidas as um ON p.id_Unidad = um.Unidad_id\r\nWHERE p.Estado = 1;");
                 datos.ejecutarRead();
 
                 while (datos.Lector.Read())
@@ -49,7 +50,6 @@ namespace Negocio
                     }
 
                     aux.stock_min = (decimal)datos.Lector["Stock_min"];
-                    aux.stock_max = (decimal)datos.Lector["Stock_max"];
 
                     productos.Add(aux);
                 }
@@ -70,14 +70,13 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO Productos (CodigoBarras, id_Categoria, id_Marca, id_Unidad, Descripcion, Stock_min, Stock_max) VALUES (@CodigoBarras, @id_Categoria, @id_Marca, @id_Unidad, @Descripcion, @Stock_min, @Stock_max) SELECT SCOPE_IDENTITY();");
+                datos.setearConsulta("INSERT INTO Productos (CodigoBarras, id_Categoria, id_Marca, id_Unidad, Descripcion, Stock_min) VALUES (@CodigoBarras, @id_Categoria, @id_Marca, @id_Unidad, @Descripcion, @Stock_min) SELECT SCOPE_IDENTITY();");
                 datos.setearParametro("@CodigoBarras", producto.codigoBarra);
                 datos.setearParametro("@id_Categoria", producto.categoria.id);
                 datos.setearParametro("@id_Marca", producto.marca.id);
                 datos.setearParametro("@id_Unidad", producto.unidad.id);
                 datos.setearParametro("@Descripcion", producto.descripcion);
                 datos.setearParametro("@Stock_min", producto.stock_min);
-                datos.setearParametro("@Stock_max", producto.stock_max);
 
                 id = datos.ejecutarScalar();
             }
@@ -95,14 +94,13 @@ namespace Negocio
         {
             try
             {
-                datos.setearConsulta("UPDATE Productos SET CodigoBarras = @CodigoBarras, id_Categoria = @id_Categoria, id_Marca = @id_Marca, id_Unidad = @id_Unidad, Descripcion = @Descripcion, Stock_min = @Stock_min, Stock_max = @Stock_max WHERE Producto_id = @id");
+                datos.setearConsulta("UPDATE Productos SET CodigoBarras = @CodigoBarras, id_Categoria = @id_Categoria, id_Marca = @id_Marca, id_Unidad = @id_Unidad, Descripcion = @Descripcion, Stock_min = @Stock_min WHERE Producto_id = @id");
                 datos.setearParametro("@CodigoBarras", producto.codigoBarra);
                 datos.setearParametro("@id_Categoria", producto.categoria.id);
                 datos.setearParametro("@id_Marca", producto.marca.id);
                 datos.setearParametro("@id_Unidad", producto.unidad.id);
                 datos.setearParametro("@Descripcion", producto.descripcion);
                 datos.setearParametro("@Stock_min", producto.stock_min);
-                datos.setearParametro("@Stock_max", producto.stock_max);
                 datos.setearParametro("@id", producto.id);
 
                 datos.ejecutarAccion();
@@ -151,6 +149,28 @@ namespace Negocio
                 {
                     return false;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void AgregarCompraConDetalles(Compra compra, DataTable detalles)///ver luego
+        {
+            try
+            {
+                datos.setearProcedure("AgregarCompraConDetalles");
+                datos.setearParametro("@idProveedor", compra.proveedor.id);
+                datos.setearParametro("@Fecha", compra.fecha);
+                datos.setearParametro("@Total", compra.precioTotal);
+                datos.setearParametroTabla("@Detalles", detalles);
+
+                datos.ejecutarRead();
             }
             catch (Exception ex)
             {

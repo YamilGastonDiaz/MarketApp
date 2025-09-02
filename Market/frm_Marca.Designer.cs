@@ -72,14 +72,14 @@
             this.tabPage1.Controls.Add(this.btn_Buscar);
             this.tabPage1.Controls.Add(this.txt_Buscar);
             this.tabPage1.Controls.Add(this.lbl_Buscar);
-            this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(732, 234);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Listado";
+            this.tabPage1.Text = "LISTADO";
             // 
             // dgv_Principal
             // 
@@ -89,7 +89,7 @@
             this.dgv_Principal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.MenuText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -98,7 +98,7 @@
             this.dgv_Principal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -116,9 +116,9 @@
             // 
             this.btn_Buscar.BackColor = System.Drawing.Color.Black;
             this.btn_Buscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Buscar.Location = new System.Drawing.Point(455, 20);
+            this.btn_Buscar.Location = new System.Drawing.Point(442, 20);
             this.btn_Buscar.Name = "btn_Buscar";
-            this.btn_Buscar.Size = new System.Drawing.Size(75, 23);
+            this.btn_Buscar.Size = new System.Drawing.Size(88, 23);
             this.btn_Buscar.TabIndex = 2;
             this.btn_Buscar.Text = "BUSCAR";
             this.btn_Buscar.UseVisualStyleBackColor = false;
@@ -127,7 +127,7 @@
             // 
             this.txt_Buscar.Location = new System.Drawing.Point(81, 22);
             this.txt_Buscar.Name = "txt_Buscar";
-            this.txt_Buscar.Size = new System.Drawing.Size(368, 20);
+            this.txt_Buscar.Size = new System.Drawing.Size(355, 22);
             this.txt_Buscar.TabIndex = 1;
             // 
             // lbl_Buscar
@@ -135,7 +135,7 @@
             this.lbl_Buscar.AutoSize = true;
             this.lbl_Buscar.Location = new System.Drawing.Point(6, 29);
             this.lbl_Buscar.Name = "lbl_Buscar";
-            this.lbl_Buscar.Size = new System.Drawing.Size(69, 13);
+            this.lbl_Buscar.Size = new System.Drawing.Size(81, 16);
             this.lbl_Buscar.TabIndex = 0;
             this.lbl_Buscar.Text = "BUSCAR:  ";
             // 
@@ -154,12 +154,13 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(732, 234);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Mantenimiento";
+            this.tabPage2.Text = "MANTENIMIENTO";
             // 
             // btn_Guardar
             // 
             this.btn_Guardar.BackColor = System.Drawing.Color.Black;
             this.btn_Guardar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_Guardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Guardar.Location = new System.Drawing.Point(247, 70);
             this.btn_Guardar.Name = "btn_Guardar";
             this.btn_Guardar.Size = new System.Drawing.Size(117, 23);
@@ -173,6 +174,7 @@
             // 
             this.btn_Cancelar.BackColor = System.Drawing.Color.Black;
             this.btn_Cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_Cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Cancelar.Location = new System.Drawing.Point(124, 70);
             this.btn_Cancelar.Name = "btn_Cancelar";
             this.btn_Cancelar.Size = new System.Drawing.Size(117, 23);
@@ -184,18 +186,20 @@
             // 
             // txt_Marca_dc
             // 
+            this.txt_Marca_dc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Marca_dc.Location = new System.Drawing.Point(124, 30);
             this.txt_Marca_dc.Name = "txt_Marca_dc";
             this.txt_Marca_dc.ReadOnly = true;
-            this.txt_Marca_dc.Size = new System.Drawing.Size(240, 20);
+            this.txt_Marca_dc.Size = new System.Drawing.Size(240, 22);
             this.txt_Marca_dc.TabIndex = 1;
             // 
             // lbl_Marca
             // 
             this.lbl_Marca.AutoSize = true;
+            this.lbl_Marca.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Marca.Location = new System.Drawing.Point(44, 33);
             this.lbl_Marca.Name = "lbl_Marca";
-            this.lbl_Marca.Size = new System.Drawing.Size(71, 13);
+            this.lbl_Marca.Size = new System.Drawing.Size(82, 16);
             this.lbl_Marca.TabIndex = 0;
             this.lbl_Marca.Text = "Marca (*):  ";
             // 
@@ -203,7 +207,7 @@
             // 
             this.btn_Nuevo.BackColor = System.Drawing.Color.Black;
             this.btn_Nuevo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Nuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Nuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Nuevo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Nuevo.Image = ((System.Drawing.Image)(resources.GetObject("btn_Nuevo.Image")));
             this.btn_Nuevo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -220,13 +224,13 @@
             // 
             this.btn_Actualizar.BackColor = System.Drawing.Color.Black;
             this.btn_Actualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Actualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Actualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Actualizar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Actualizar.Image = ((System.Drawing.Image)(resources.GetObject("btn_Actualizar.Image")));
             this.btn_Actualizar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_Actualizar.Location = new System.Drawing.Point(93, 279);
             this.btn_Actualizar.Name = "btn_Actualizar";
-            this.btn_Actualizar.Size = new System.Drawing.Size(96, 56);
+            this.btn_Actualizar.Size = new System.Drawing.Size(115, 56);
             this.btn_Actualizar.TabIndex = 2;
             this.btn_Actualizar.Text = "ACTUALIZAR";
             this.btn_Actualizar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -237,13 +241,13 @@
             // 
             this.btn_Elimiar.BackColor = System.Drawing.Color.Black;
             this.btn_Elimiar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Elimiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Elimiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Elimiar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Elimiar.Image = ((System.Drawing.Image)(resources.GetObject("btn_Elimiar.Image")));
             this.btn_Elimiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Elimiar.Location = new System.Drawing.Point(195, 279);
+            this.btn_Elimiar.Location = new System.Drawing.Point(214, 279);
             this.btn_Elimiar.Name = "btn_Elimiar";
-            this.btn_Elimiar.Size = new System.Drawing.Size(75, 56);
+            this.btn_Elimiar.Size = new System.Drawing.Size(87, 56);
             this.btn_Elimiar.TabIndex = 3;
             this.btn_Elimiar.Text = "ELIMINAR";
             this.btn_Elimiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -254,13 +258,13 @@
             // 
             this.btn_Reporte.BackColor = System.Drawing.Color.Black;
             this.btn_Reporte.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Reporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Reporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Reporte.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Reporte.Image = ((System.Drawing.Image)(resources.GetObject("btn_Reporte.Image")));
             this.btn_Reporte.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Reporte.Location = new System.Drawing.Point(276, 278);
+            this.btn_Reporte.Location = new System.Drawing.Point(307, 278);
             this.btn_Reporte.Name = "btn_Reporte";
-            this.btn_Reporte.Size = new System.Drawing.Size(75, 57);
+            this.btn_Reporte.Size = new System.Drawing.Size(96, 57);
             this.btn_Reporte.TabIndex = 4;
             this.btn_Reporte.Text = "REPORTE";
             this.btn_Reporte.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -270,11 +274,11 @@
             // 
             this.btn_Salir.BackColor = System.Drawing.Color.Black;
             this.btn_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Salir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Salir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Salir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Salir.Image = ((System.Drawing.Image)(resources.GetObject("btn_Salir.Image")));
             this.btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Salir.Location = new System.Drawing.Point(357, 278);
+            this.btn_Salir.Location = new System.Drawing.Point(409, 278);
             this.btn_Salir.Name = "btn_Salir";
             this.btn_Salir.Size = new System.Drawing.Size(75, 57);
             this.btn_Salir.TabIndex = 5;
@@ -297,7 +301,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frm_Marca";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Marcas";
+            this.Text = "MARCAS";
             this.Load += new System.EventHandler(this.frm_Marca_Load);
             this.tab_Principal.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

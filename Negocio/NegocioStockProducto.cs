@@ -13,34 +13,6 @@ namespace Negocio
     {
         ConexionDB datos = new ConexionDB();
 
-        public void AgregarStockActual(DataTable detalles)
-        {
-            try
-            {
-                foreach (DataRow fila in detalles.Rows)
-                {
-                    int idProducto = Convert.ToInt32(fila["id"]);
-                    decimal cantidad = Convert.ToDecimal(fila["Cantidad"]);
-                    decimal precioCompra = Convert.ToDecimal(fila["PrecioCompra"]);
-                    
-                    datos.setearConsulta("UPDATE StockProductos SET Stock_actual = Stock_actual + @cantidad WHERE id_Producto = @idProducto");
-
-                    datos.setearParametro("@cantidad", cantidad);
-                    datos.setearParametro("@idProducto", idProducto);
-
-                    datos.ejecutarAccion();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
         public void AgregarStockProducto(int id, decimal stock, decimal precioD, decimal precioN)
         {
             try
@@ -109,8 +81,31 @@ namespace Negocio
             finally
             {
                 datos.cerrarConexion();
+            } 
+        }
+
+        public bool HayStock(int idProducto)
+        {
+            int count = 0;
+
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM StockProductos WHERE id_Producto = @idProducto");
+                datos.setearParametro("@idProducto", idProducto);
+
+                count = datos.ejecutarScalar();
+
+                return count > 0; 
             }
-            
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }
+

@@ -55,32 +55,5 @@ namespace Negocio
             }
             return detalle;
         }
-
-        public void AgregarDetalle(int id, DataTable detalles)
-        {
-            try
-            {
-                foreach (DataRow fila in detalles.Rows)
-                {
-                    datos.setearConsulta("INSERT INTO DetalleCompras (id_Compra, id_Producto, id_Marca, Cantidad, PrecioCompra, Subtotal) VALUES (@id_Compra, @id_Producto, @id_Marca, @Cantidad, @PrecioCompra, @Subtotal);");
-                    datos.setearParametro("@id_Compra", id);
-                    datos.setearParametro("@id_Producto", fila["id"]);
-                    datos.setearParametro("@id_Marca", fila["id_Marca"]);
-                    datos.setearParametro("@Cantidad", fila["Cantidad"]);
-                    datos.setearParametro("@PrecioCompra", fila["PrecioCompra"]);
-                    datos.setearParametro("@Subtotal", fila["Subtotal"]);
-
-                    datos.ejecutarAccion();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
     }
 }

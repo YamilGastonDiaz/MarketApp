@@ -37,11 +37,11 @@ namespace Market
             dgv_listarDetalle.Columns[1].Visible = false;
             dgv_listarDetalle.Columns[2].Width = 250;
             dgv_listarDetalle.Columns[2].HeaderText = "PRODUCTO";
-            dgv_listarDetalle.Columns[3].Width = 250;
+            dgv_listarDetalle.Columns[3].Width = 220;
             dgv_listarDetalle.Columns[3].HeaderText = "MARCA";
             dgv_listarDetalle.Columns[4].Width = 130;
             dgv_listarDetalle.Columns[4].HeaderText = "CANTIDAD";
-            dgv_listarDetalle.Columns[5].Width = 130;
+            dgv_listarDetalle.Columns[5].Width = 160;
             dgv_listarDetalle.Columns[5].HeaderText = "PRECIO COMPRA";
             dgv_listarDetalle.Columns[6].Width = 130;
             dgv_listarDetalle.Columns[6].HeaderText = "SUBTOTAL";
