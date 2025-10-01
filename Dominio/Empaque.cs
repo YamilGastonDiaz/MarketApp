@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class UnidadMedida
+    public class Empaque
     {
         public int id { get; set; }
-        public string abreviatura { get; set; }
         public string descripcion { get; set; }
+        public decimal cantidadxUnidad { get; set; }
 
-        public UnidadMedida()
+        public Empaque()
         {
             id = 0;
-            abreviatura = string.Empty;
             descripcion = string.Empty;
+            cantidadxUnidad = 0;
         }
 
         public override string ToString()

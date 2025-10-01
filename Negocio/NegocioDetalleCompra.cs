@@ -10,14 +10,14 @@ namespace Negocio
 {
     public class NegocioDetalleCompra
     {
-        ConexionDB datos = new ConexionDB();
+        private ConexionDB datos = new ConexionDB();
 
         public List<DetalleCompra> ListarDetalle(int id)
         {
             List<DetalleCompra> detalle = new List<DetalleCompra>();
             try
             {
-                datos.setearConsulta("SELECT Detalle_id, p.Descripcion as Producto, m.Descripcion as Marca, dc.Cantidad, dc.PrecioCompra, dc.Subtotal\r\nFROM DetalleCompras as dc\r\nINNER JOIN Productos as p on dc.id_Producto = p.Producto_id\r\nINNER JOIN Marcas as m on dc.id_Marca = m.Marca_id\r\nWHERE dc.id_Compra = @id");
+                datos.setearConsulta("SELECT Detalle_id, p.Descripcion AS Producto, m.Descripcion AS Marca, e.Descripcion AS Empaque, dc.Cantidad, dc.PrecioCompra, dc.Subtotal\r\nFROM DetalleCompras AS dc\r\nINNER JOIN Productos AS p ON dc.id_Producto = p.Producto_id\r\nINNER JOIN Marcas AS m ON dc.id_Marca = m.Marca_id\r\nINNER JOIN TiposEmpaques AS e ON p.id_Empaque = e.Empaque_id\r\nWHERE dc.id_Compra = @id");
                 datos.setearParametro("@id", id);
                 datos.ejecutarRead();
 
@@ -36,6 +36,12 @@ namespace Negocio
                     {
                         aux.marca = new Marca();
                         aux.marca.descripcion = (string)datos.Lector["Marca"];
+                    }
+
+                    if (!(datos.Lector["Empaque"] is DBNull))
+                    {
+                        aux.producto.empaque = new Empaque();
+                        aux.producto.empaque.descripcion = (string)datos.Lector["Empaque"];
                     }
 
                     aux.cantidad = (decimal)datos.Lector["Cantidad"];

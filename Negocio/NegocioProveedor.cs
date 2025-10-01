@@ -9,7 +9,7 @@ namespace Negocio
 {
     public class NegocioProveedor
     {
-        ConexionDB datos = new ConexionDB();
+        private ConexionDB datos = new ConexionDB();
 
         public List<Proveedor> ListarProveedor()
         {
@@ -135,6 +135,40 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public List<Proveedor> BuscarPorEmpresa(string descripcion)
+        {
+            List<Proveedor> proveedor = new List<Proveedor>();
+            try
+            {
+                datos.setearConsulta("SELECT Proveedor_id, Nombre, CUIT, Direccion, Telefono, Email, Empresa FROM Proveedores WHERE Estado = 1 AND Empresa LIKE @empresa");
+                datos.setearParametro("@empresa", "%" + descripcion + "%");
+                datos.ejecutarRead();
+
+                while (datos.Lector.Read())
+                {
+                    Proveedor aux = new Proveedor();
+                    aux.id = (int)datos.Lector["Proveedor_id"];
+                    aux.nombre = (string)datos.Lector["Nombre"];
+                    aux.cuit = (string)datos.Lector["CUIT"];
+                    aux.direccion = (string)datos.Lector["Direccion"];
+                    aux.telefono = (string)datos.Lector["Telefono"];
+                    aux.mail = (string)datos.Lector["Email"];
+                    aux.empresa = (string)datos.Lector["Empresa"]; 
+
+                    proveedor.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return proveedor;
         }
     }
 }

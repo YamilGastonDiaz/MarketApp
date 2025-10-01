@@ -18,15 +18,15 @@ namespace Market
         private NegocioProducto negocioProducto = new NegocioProducto();
         private NegocioCategoria negocioCategoria = new NegocioCategoria();
         private NegocioMarca negocioMarca = new NegocioMarca();
-        private NegocioUnidadMedida negocioUnidadMedida = new NegocioUnidadMedida();
+        private NegocioEmpaque negocioEmpaque = new NegocioEmpaque();
         private NegocioStockProducto negocioStock = new NegocioStockProducto();
         private List<Producto> listar;
         private List<Categoria> listarC;
         private List<Marca> listarM;
-        private List<UnidadMedida> listarUM;
+        private List<Empaque> listarE;
         private int categoriaSeleccionadaId = 0;
         private int marcaSeleccionadaId = 0;
-        private int medidaSeleccionadaId = 0;
+        private int empaqueSeleccionadaId = 0;
         int stock = 0;
         decimal precioD = 0;
         decimal precioN = 0;
@@ -36,6 +36,11 @@ namespace Market
         public frm_Producto()
         {
             InitializeComponent();
+            txt_Producto_dc.CharacterCasing = CharacterCasing.Upper;
+            txt_Buscar.CharacterCasing = CharacterCasing.Upper;
+            txt_BuscarC.CharacterCasing = CharacterCasing.Upper;
+            txt_BuscarM.CharacterCasing = CharacterCasing.Upper;
+            txt_BuscarE.CharacterCasing = CharacterCasing.Upper;
             txt_Stockmin.KeyPress += SoloNumeros_KeyPress;
             txt_CodigoBarra.KeyPress += SoloNumeros_KeyPress;
         }
@@ -49,19 +54,19 @@ namespace Market
 
         private void FormatoProducto()
         {
-            dgv_Principal.Columns[0].Visible = false;
-            dgv_Principal.Columns[1].Width = 200;
-            dgv_Principal.Columns[1].HeaderText = "CODIGO BARRA";
-            dgv_Principal.Columns[2].Width = 150;
-            dgv_Principal.Columns[2].HeaderText = "CATEGORIA";
-            dgv_Principal.Columns[3].Width = 150;
-            dgv_Principal.Columns[3].HeaderText = "MARCA";
-            dgv_Principal.Columns[4].Width = 100;
-            dgv_Principal.Columns[4].HeaderText = "MEDIDA";
-            dgv_Principal.Columns[5].Width = 300;
-            dgv_Principal.Columns[5].HeaderText = "DESCRIPCION";
-            dgv_Principal.Columns[6].Width = 120;
-            dgv_Principal.Columns[6].HeaderText = "STOCK MIN";
+            dgv_Principal.Columns["id"].Visible = false;
+            dgv_Principal.Columns["codigoBarra"].Width = 150;
+            dgv_Principal.Columns["codigoBarra"].HeaderText = "CODIGO BARRA";
+            dgv_Principal.Columns["categoria"].Width = 200;
+            dgv_Principal.Columns["categoria"].HeaderText = "CATEGORIA";
+            dgv_Principal.Columns["marca"].Width = 150;
+            dgv_Principal.Columns["marca"].HeaderText = "MARCA";
+            dgv_Principal.Columns["empaque"].Width = 100;
+            dgv_Principal.Columns["empaque"].HeaderText = "EMPAQUE";
+            dgv_Principal.Columns["descripcion"].Width = 300;
+            dgv_Principal.Columns["descripcion"].HeaderText = "DESCRIPCION";
+            dgv_Principal.Columns["stock_min"].Width = 120;
+            dgv_Principal.Columns["stock_min"].HeaderText = "STOCK MIN";
         }
 
         private void EstadoBtnPrincipales(bool estado)
@@ -77,6 +82,9 @@ namespace Market
         {
             btn_Cancelar.Visible = estado;
             btn_Guardar.Visible = estado;
+            btn_LupaCategoria.Visible = estado;
+            btn_LupaMarca.Visible = estado;
+            btn_LupaEmpaque.Visible = estado;
         }
 
         private void frm_Producto_Load(object sender, EventArgs e)
@@ -84,7 +92,7 @@ namespace Market
             CargarLista();
             CargarListaCategoria();
             CargarListaMarca();
-            CargarListaMedida();
+            CargarListaEmpaque();
         }
 
         private void btn_Nuevo_Click(object sender, EventArgs e)
@@ -110,11 +118,11 @@ namespace Market
                 txt_Stockmin.Text = seleccionada.stock_min.ToString();
                 txt_Categoria.Text = seleccionada.categoria.descripcion;
                 txt_Marca.Text = seleccionada.marca.descripcion;
-                txt_Medida.Text = seleccionada.unidad.descripcion;
+                txt_Empaque.Text = seleccionada.empaque.descripcion;
 
                 categoriaSeleccionadaId = seleccionada.categoria.id;
                 marcaSeleccionadaId = seleccionada.marca.id;
-                medidaSeleccionadaId = seleccionada.unidad.id;
+                empaqueSeleccionadaId = seleccionada.empaque.id;
 
                 txt_CodigoBarra.ReadOnly = false;
                 txt_Producto_dc.ReadOnly = false;
@@ -171,16 +179,20 @@ namespace Market
             string stock_min = txt_Stockmin.Text.Trim();
             string descripcion = txt_Producto_dc.Text.Trim();
 
-
+            if (negocioProducto.ExisteCodigoBarras(txt_CodigoBarra.Text))
+            {
+                MessageBox.Show("El codigo de barra ingresado ya se encuentra registrado", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (!decimal.TryParse(stock_min, out decimal stockMinDecimal))
             {
-                MessageBox.Show("Stock mínimo y máximo deben ser números válidos.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Stock mínimo debe ser números válidos.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(cogo_barra) || string.IsNullOrWhiteSpace(descripcion) || string.IsNullOrWhiteSpace(stock_min) || string.IsNullOrWhiteSpace(txt_Categoria.Text) ||
-                 string.IsNullOrWhiteSpace(txt_Marca.Text) || string.IsNullOrWhiteSpace(txt_Medida.Text))
+                 string.IsNullOrWhiteSpace(txt_Marca.Text) || string.IsNullOrWhiteSpace(txt_Empaque.Text))
             {
                 MessageBox.Show("Falta ingresar datos requerido (*)", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -193,7 +205,7 @@ namespace Market
                 producto.stock_min = decimal.Parse(stock_min);
                 producto.categoria.id = categoriaSeleccionadaId;
                 producto.marca.id = marcaSeleccionadaId;
-                producto.unidad.id = medidaSeleccionadaId;
+                producto.empaque.id = empaqueSeleccionadaId;
 
                 if (editar)
                 {
@@ -216,13 +228,13 @@ namespace Market
                 txt_Stockmin.Text = "";
                 txt_Categoria.Text = "";
                 txt_Marca.Text = "";
-                txt_Medida.Text = "";
+                txt_Empaque.Text = "";
                 txt_CodigoBarra.ReadOnly = true;
                 txt_Producto_dc.ReadOnly = true;
                 txt_Stockmin.ReadOnly = true;
                 categoriaSeleccionadaId = 0;
                 marcaSeleccionadaId = 0;
-                medidaSeleccionadaId = 0;
+                empaqueSeleccionadaId = 0;
                 tab_Principal.SelectedIndex = 0;
 
                 editar = false;
@@ -237,10 +249,13 @@ namespace Market
             txt_Stockmin.Text = "";
             txt_Categoria.Text = "";
             txt_Marca.Text = "";
-            txt_Medida.Text = "";
+            txt_Empaque.Text = "";
             txt_CodigoBarra.ReadOnly = true;
             txt_Producto_dc.ReadOnly = true;
             txt_Stockmin.ReadOnly = true;
+            pnl_ListadoCategoria.Visible = false;
+            pnl_ListadoMarca.Visible = false;
+            pnl_ListadoEmpaque.Visible = false;
             EstadoBtnPrincipales(true);
             EstadoBtnProcesos(false);
             tab_Principal.SelectedIndex = 0;
@@ -272,9 +287,9 @@ namespace Market
 
         private void FormatoCategoria()
         {
-            dgv_Categorias.Columns[0].Visible = false;
-            dgv_Categorias.Columns[1].Width = 250;
-            dgv_Categorias.Columns[1].HeaderText = "CATEGORIAS";
+            dgv_Categorias.Columns["id"].Visible = false;
+            dgv_Categorias.Columns["descripcion"].Width = 250;
+            dgv_Categorias.Columns["descripcion"].HeaderText = "CATEGORIAS";
         }
 
         private void SelecionCategoria()
@@ -311,9 +326,9 @@ namespace Market
 
         private void FormatoMarca()
         {
-            dgv_Marcas.Columns[0].Visible = false;
-            dgv_Marcas.Columns[1].Width = 250;
-            dgv_Marcas.Columns[1].HeaderText = "MARCAS";
+            dgv_Marcas.Columns["id"].Visible = false;
+            dgv_Marcas.Columns["descripcion"].Width = 250;
+            dgv_Marcas.Columns["descripcion"].HeaderText = "MARCAS";
         }
 
         private void SelecionMarca()
@@ -335,44 +350,44 @@ namespace Market
             pnl_ListadoMarca.Visible = false;
         }
 
-        private void btn_LupaMedida_Click(object sender, EventArgs e)
+        private void btn_LupaEmpaque_Click(object sender, EventArgs e)
         {
-            pnl_ListadoUM.Location = btn_LupaCategoria.Location;
-            pnl_ListadoUM.Visible = true;
+            pnl_ListadoEmpaque.Location = btn_LupaCategoria.Location;
+            pnl_ListadoEmpaque.Visible = true;
         }
 
-        private void CargarListaMedida()
+        private void CargarListaEmpaque()
         {
-            listarUM = negocioUnidadMedida.ListarUnidad();
-            dgv_UnidadMedida.DataSource = listarUM;
-            FormatoMedida();
+            listarE = negocioEmpaque.ListarEmpaque();
+            dgv_Empaque.DataSource = listarE;
+            FormatoEmpaque();
         }
 
-        private void FormatoMedida()
+        private void FormatoEmpaque()
         {
-            dgv_UnidadMedida.Columns[0].Visible = false;
-            dgv_UnidadMedida.Columns[1].Visible = false;
-            dgv_UnidadMedida.Columns[2].Width = 250;
-            dgv_UnidadMedida.Columns[2].HeaderText = "UNIDAD MEDIDA";
+            dgv_Empaque.Columns["id"].Visible = false;
+            dgv_Empaque.Columns["descripcion"].Width = 250;
+            dgv_Empaque.Columns["descripcion"].HeaderText = "EMPAQUE";
+            dgv_Empaque.Columns["cantidadxUnidad"].Visible = false;
         }
 
-        private void SelecionUnidadMedida()
+        private void SelecionEmpaque()
         {
-            if (string.IsNullOrEmpty(Convert.ToString(dgv_UnidadMedida.CurrentRow.Cells[0].Value)))
+            if (string.IsNullOrEmpty(Convert.ToString(dgv_Empaque.CurrentRow.Cells[0].Value)))
             {
                 MessageBox.Show("No se tiene la información para Visualizar", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                medidaSeleccionadaId = Convert.ToInt32(dgv_UnidadMedida.CurrentRow.Cells[0].Value);
-                txt_Medida.Text = Convert.ToString(dgv_UnidadMedida.CurrentRow.Cells[2].Value);
+                empaqueSeleccionadaId = Convert.ToInt32(dgv_Empaque.CurrentRow.Cells[0].Value);
+                txt_Empaque.Text = Convert.ToString(dgv_Empaque.CurrentRow.Cells[1].Value);
             }
         }
 
-        private void dgv_UnidadMedida_DoubleClick(object sender, EventArgs e)
+        private void dgv_Empaque_DoubleClick(object sender, EventArgs e)
         {
-            SelecionUnidadMedida();
-            pnl_ListadoUM.Visible = false;
+            SelecionEmpaque();
+            pnl_ListadoEmpaque.Visible = false;
         }
 
         private void btn_RetornarC_Click(object sender, EventArgs e)
@@ -385,9 +400,9 @@ namespace Market
             pnl_ListadoMarca.Visible = false;
         }
 
-        private void btn_RetornarUM_Click(object sender, EventArgs e)
+        private void btn_RetortnarE_Click(object sender, EventArgs e)
         {
-            pnl_ListadoUM.Visible = false;
+            pnl_ListadoEmpaque.Visible = false;
         }
 
         private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
@@ -395,6 +410,40 @@ namespace Market
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void btn_Buscar_Click(object sender, EventArgs e)
+        {
+            dgv_Principal.DataSource = negocioProducto.BuscarPorDescripcion(txt_Buscar.Text);
+        }
+
+        private void btn_BuscarC1_Click(object sender, EventArgs e)
+        {
+            dgv_Categorias.DataSource = negocioCategoria.BuscarPorDescripcion(txt_BuscarC.Text);
+        }
+
+        private void btn_BuscarM1_Click(object sender, EventArgs e)
+        {
+            dgv_Marcas.DataSource = negocioMarca.BuscarPorDescripcion(txt_BuscarM.Text);
+        }
+
+        private void btn_BuscarE1_Click(object sender, EventArgs e)
+        {
+            dgv_Empaque.DataSource = negocioEmpaque.BuscarPorDescripcion(txt_BuscarE.Text);
+        }
+
+        private void btn_Salir_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void txt_CodigoBarra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (negocioProducto.ExisteCodigoBarras(txt_CodigoBarra.Text))
+                    MessageBox.Show("El codigo de barra ingresado ya se encuentra registrado", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

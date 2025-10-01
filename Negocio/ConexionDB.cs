@@ -42,10 +42,17 @@ namespace Negocio
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = SP;
         }
-        public void setearParametroTabla(string nombre, DataTable tabla) ///ver luego
+        public void setearParametroTablaCompra(string nombre, DataTable tabla)
         {
             SqlParameter param = new SqlParameter(nombre, SqlDbType.Structured);
             param.TypeName = "dbo.DetalleCompraType";
+            param.Value = tabla;
+            command.Parameters.Add(param);
+        }
+        public void setearParametroTablaVenta(string nombre, DataTable tabla)
+        {
+            SqlParameter param = new SqlParameter(nombre, SqlDbType.Structured);
+            param.TypeName = "dbo.DetalleVentaType";
             param.Value = tabla;
             command.Parameters.Add(param);
         }

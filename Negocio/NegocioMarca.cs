@@ -9,7 +9,7 @@ namespace Negocio
 {
     public class NegocioMarca
     {
-        ConexionDB datos = new ConexionDB();
+        private ConexionDB datos = new ConexionDB();
 
         public List<Marca> ListarMarca()
         {
@@ -119,6 +119,35 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public List<Marca> BuscarPorDescripcion(string descripcion)
+        {
+            List<Marca> marca = new List<Marca>();
+            try
+            {
+                datos.setearConsulta("SELECT Marca_id, Descripcion FROM Marcas WHERE Estado = 1 AND Descripcion LIKE @descripcion");
+                datos.setearParametro("@descripcion", "%" + descripcion + "%");
+                datos.ejecutarRead();
+
+                while (datos.Lector.Read())
+                {
+                    Marca aux = new Marca();
+                    aux.id = (int)datos.Lector["Marca_id"];
+                    aux.descripcion = (string)datos.Lector["Descripcion"];
+
+                    marca.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return marca;
         }
     }
 }

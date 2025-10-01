@@ -1,6 +1,6 @@
 ﻿namespace Market
 {
-    partial class frm_UnidadMedida
+    partial class frm_TipoEmpaque
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -30,7 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_UnidadMedida));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_TipoEmpaque));
             this.tab_Principal = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dgv_Principal = new System.Windows.Forms.DataGridView();
@@ -38,21 +38,24 @@
             this.txt_Buscar = new System.Windows.Forms.TextBox();
             this.lbl_Buscar = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txt_Abreviatura = new System.Windows.Forms.TextBox();
+            this.txt_Cant_Unidad = new System.Windows.Forms.TextBox();
             this.lbl_Abreviatura = new System.Windows.Forms.Label();
             this.btn_Guardar = new System.Windows.Forms.Button();
             this.btn_Cancelar = new System.Windows.Forms.Button();
-            this.txt_Medida_dc = new System.Windows.Forms.TextBox();
+            this.txt_Descripcion = new System.Windows.Forms.TextBox();
             this.lbl_Medida = new System.Windows.Forms.Label();
             this.btn_Nuevo = new System.Windows.Forms.Button();
             this.btn_Actualizar = new System.Windows.Forms.Button();
             this.btn_Elimiar = new System.Windows.Forms.Button();
             this.btn_Reporte = new System.Windows.Forms.Button();
             this.btn_Salir = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.tab_Principal.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Principal)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_Principal
@@ -60,10 +63,10 @@
             this.tab_Principal.Controls.Add(this.tabPage1);
             this.tab_Principal.Controls.Add(this.tabPage2);
             this.tab_Principal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tab_Principal.Location = new System.Drawing.Point(12, 12);
+            this.tab_Principal.Location = new System.Drawing.Point(12, 48);
             this.tab_Principal.Name = "tab_Principal";
             this.tab_Principal.SelectedIndex = 0;
-            this.tab_Principal.Size = new System.Drawing.Size(740, 260);
+            this.tab_Principal.Size = new System.Drawing.Size(740, 414);
             this.tab_Principal.TabIndex = 0;
             // 
             // tabPage1
@@ -79,7 +82,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(732, 234);
+            this.tabPage1.Size = new System.Drawing.Size(732, 388);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "LISTADO";
             // 
@@ -101,9 +104,9 @@
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ActiveBorder;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_Principal.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_Principal.EnableHeadersVisualStyles = false;
@@ -111,7 +114,7 @@
             this.dgv_Principal.Name = "dgv_Principal";
             this.dgv_Principal.ReadOnly = true;
             this.dgv_Principal.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_Principal.Size = new System.Drawing.Size(524, 150);
+            this.dgv_Principal.Size = new System.Drawing.Size(524, 325);
             this.dgv_Principal.TabIndex = 3;
             // 
             // btn_Buscar
@@ -124,6 +127,7 @@
             this.btn_Buscar.TabIndex = 2;
             this.btn_Buscar.Text = "BUSCAR";
             this.btn_Buscar.UseVisualStyleBackColor = false;
+            this.btn_Buscar.Click += new System.EventHandler(this.btn_Buscar_Click);
             // 
             // txt_Buscar
             // 
@@ -145,38 +149,38 @@
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
             this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tabPage2.Controls.Add(this.txt_Abreviatura);
+            this.tabPage2.Controls.Add(this.txt_Cant_Unidad);
             this.tabPage2.Controls.Add(this.lbl_Abreviatura);
             this.tabPage2.Controls.Add(this.btn_Guardar);
             this.tabPage2.Controls.Add(this.btn_Cancelar);
-            this.tabPage2.Controls.Add(this.txt_Medida_dc);
+            this.tabPage2.Controls.Add(this.txt_Descripcion);
             this.tabPage2.Controls.Add(this.lbl_Medida);
             this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(732, 234);
+            this.tabPage2.Size = new System.Drawing.Size(732, 388);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MANTENIMIENTO";
             // 
-            // txt_Abreviatura
+            // txt_Cant_Unidad
             // 
-            this.txt_Abreviatura.Location = new System.Drawing.Point(189, 61);
-            this.txt_Abreviatura.MaxLength = 3;
-            this.txt_Abreviatura.Name = "txt_Abreviatura";
-            this.txt_Abreviatura.ReadOnly = true;
-            this.txt_Abreviatura.Size = new System.Drawing.Size(240, 22);
-            this.txt_Abreviatura.TabIndex = 2;
+            this.txt_Cant_Unidad.Location = new System.Drawing.Point(189, 61);
+            this.txt_Cant_Unidad.MaxLength = 500;
+            this.txt_Cant_Unidad.Name = "txt_Cant_Unidad";
+            this.txt_Cant_Unidad.ReadOnly = true;
+            this.txt_Cant_Unidad.Size = new System.Drawing.Size(240, 22);
+            this.txt_Cant_Unidad.TabIndex = 2;
             // 
             // lbl_Abreviatura
             // 
             this.lbl_Abreviatura.AutoSize = true;
-            this.lbl_Abreviatura.Location = new System.Drawing.Point(17, 61);
+            this.lbl_Abreviatura.Location = new System.Drawing.Point(17, 67);
             this.lbl_Abreviatura.Name = "lbl_Abreviatura";
-            this.lbl_Abreviatura.Size = new System.Drawing.Size(115, 16);
+            this.lbl_Abreviatura.Size = new System.Drawing.Size(159, 16);
             this.lbl_Abreviatura.TabIndex = 4;
-            this.lbl_Abreviatura.Text = "Abreviatura (*): ";
+            this.lbl_Abreviatura.Text = "Cantidad x unidad (*): ";
             // 
             // btn_Guardar
             // 
@@ -204,23 +208,23 @@
             this.btn_Cancelar.Visible = false;
             this.btn_Cancelar.Click += new System.EventHandler(this.btn_Cancelar_Click);
             // 
-            // txt_Medida_dc
+            // txt_Descripcion
             // 
-            this.txt_Medida_dc.Location = new System.Drawing.Point(189, 30);
-            this.txt_Medida_dc.MaxLength = 30;
-            this.txt_Medida_dc.Name = "txt_Medida_dc";
-            this.txt_Medida_dc.ReadOnly = true;
-            this.txt_Medida_dc.Size = new System.Drawing.Size(240, 22);
-            this.txt_Medida_dc.TabIndex = 1;
+            this.txt_Descripcion.Location = new System.Drawing.Point(189, 30);
+            this.txt_Descripcion.MaxLength = 30;
+            this.txt_Descripcion.Name = "txt_Descripcion";
+            this.txt_Descripcion.ReadOnly = true;
+            this.txt_Descripcion.Size = new System.Drawing.Size(240, 22);
+            this.txt_Descripcion.TabIndex = 1;
             // 
             // lbl_Medida
             // 
             this.lbl_Medida.AutoSize = true;
-            this.lbl_Medida.Location = new System.Drawing.Point(17, 33);
+            this.lbl_Medida.Location = new System.Drawing.Point(17, 36);
             this.lbl_Medida.Name = "lbl_Medida";
-            this.lbl_Medida.Size = new System.Drawing.Size(167, 16);
+            this.lbl_Medida.Size = new System.Drawing.Size(122, 16);
             this.lbl_Medida.TabIndex = 0;
-            this.lbl_Medida.Text = "Unidad de Medida (*):  ";
+            this.lbl_Medida.Text = "Descripcion (*):  ";
             // 
             // btn_Nuevo
             // 
@@ -230,7 +234,7 @@
             this.btn_Nuevo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Nuevo.Image = ((System.Drawing.Image)(resources.GetObject("btn_Nuevo.Image")));
             this.btn_Nuevo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Nuevo.Location = new System.Drawing.Point(12, 279);
+            this.btn_Nuevo.Location = new System.Drawing.Point(12, 468);
             this.btn_Nuevo.Name = "btn_Nuevo";
             this.btn_Nuevo.Size = new System.Drawing.Size(75, 56);
             this.btn_Nuevo.TabIndex = 1;
@@ -247,7 +251,7 @@
             this.btn_Actualizar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Actualizar.Image = ((System.Drawing.Image)(resources.GetObject("btn_Actualizar.Image")));
             this.btn_Actualizar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Actualizar.Location = new System.Drawing.Point(93, 279);
+            this.btn_Actualizar.Location = new System.Drawing.Point(93, 468);
             this.btn_Actualizar.Name = "btn_Actualizar";
             this.btn_Actualizar.Size = new System.Drawing.Size(119, 56);
             this.btn_Actualizar.TabIndex = 2;
@@ -264,7 +268,7 @@
             this.btn_Elimiar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Elimiar.Image = ((System.Drawing.Image)(resources.GetObject("btn_Elimiar.Image")));
             this.btn_Elimiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Elimiar.Location = new System.Drawing.Point(218, 278);
+            this.btn_Elimiar.Location = new System.Drawing.Point(218, 467);
             this.btn_Elimiar.Name = "btn_Elimiar";
             this.btn_Elimiar.Size = new System.Drawing.Size(87, 56);
             this.btn_Elimiar.TabIndex = 3;
@@ -281,7 +285,7 @@
             this.btn_Reporte.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Reporte.Image = ((System.Drawing.Image)(resources.GetObject("btn_Reporte.Image")));
             this.btn_Reporte.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Reporte.Location = new System.Drawing.Point(311, 278);
+            this.btn_Reporte.Location = new System.Drawing.Point(311, 467);
             this.btn_Reporte.Name = "btn_Reporte";
             this.btn_Reporte.Size = new System.Drawing.Size(90, 57);
             this.btn_Reporte.TabIndex = 4;
@@ -297,20 +301,42 @@
             this.btn_Salir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Salir.Image = ((System.Drawing.Image)(resources.GetObject("btn_Salir.Image")));
             this.btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Salir.Location = new System.Drawing.Point(407, 278);
+            this.btn_Salir.Location = new System.Drawing.Point(407, 467);
             this.btn_Salir.Name = "btn_Salir";
             this.btn_Salir.Size = new System.Drawing.Size(75, 57);
             this.btn_Salir.TabIndex = 5;
             this.btn_Salir.Text = "SALIR";
             this.btn_Salir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_Salir.UseVisualStyleBackColor = false;
+            this.btn_Salir.Click += new System.EventHandler(this.btn_Salir_Click);
             // 
-            // frm_UnidadMedida
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(784, 40);
+            this.panel1.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(171, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "TIPO DE EMPAQUE";
+            // 
+            // frm_TipoEmpaque
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
-            this.ClientSize = new System.Drawing.Size(784, 361);
+            this.ClientSize = new System.Drawing.Size(784, 539);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_Salir);
             this.Controls.Add(this.btn_Reporte);
             this.Controls.Add(this.btn_Elimiar);
@@ -318,16 +344,18 @@
             this.Controls.Add(this.btn_Nuevo);
             this.Controls.Add(this.tab_Principal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frm_UnidadMedida";
+            this.Name = "frm_TipoEmpaque";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Unidad de Medidas";
-            this.Load += new System.EventHandler(this.frm_UnidadMedida_Load);
+            this.Text = "TIPOS DE EMPAQUE";
+            this.Load += new System.EventHandler(this.frm_TipoEmpaque_Load);
             this.tab_Principal.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Principal)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -346,12 +374,14 @@
         private System.Windows.Forms.Button btn_Elimiar;
         private System.Windows.Forms.Button btn_Reporte;
         private System.Windows.Forms.Button btn_Salir;
-        private System.Windows.Forms.TextBox txt_Medida_dc;
+        private System.Windows.Forms.TextBox txt_Descripcion;
         private System.Windows.Forms.Label lbl_Medida;
         private System.Windows.Forms.Button btn_Guardar;
         private System.Windows.Forms.Button btn_Cancelar;
         private System.Windows.Forms.Label lbl_Abreviatura;
-        private System.Windows.Forms.TextBox txt_Abreviatura;
+        private System.Windows.Forms.TextBox txt_Cant_Unidad;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -16,12 +16,15 @@ namespace Market
     {
         private NegocioCategoria negocioCategoria = new NegocioCategoria();
         private List<Categoria> listar;
+        private List<Categoria> resultados;
         private bool editar = false;
         private int idEditar = 0;
 
         public frm_Categoria()
         {
             InitializeComponent();
+            txt_Categira_dc.CharacterCasing = CharacterCasing.Upper;
+            txt_Buscar.CharacterCasing = CharacterCasing.Upper;
         }
 
         private void CargarLista()
@@ -33,10 +36,10 @@ namespace Market
 
         private void FormatoCategoria()
         {
-            dgv_Principal.Columns[0].Width = 100;
-            dgv_Principal.Columns[0].HeaderText = "ID";
-            dgv_Principal.Columns[1].Width = 380;
-            dgv_Principal.Columns[1].HeaderText = "CATEGORIA";
+            dgv_Principal.Columns["id"].Width = 100;
+            dgv_Principal.Columns["id"].HeaderText = "ID";
+            dgv_Principal.Columns["descripcion"].Width = 380;
+            dgv_Principal.Columns["descripcion"].HeaderText = "CATEGORIA";
         }
 
         private void EstadoBtnPrincipales(bool estado)
@@ -166,6 +169,16 @@ namespace Market
             EstadoBtnPrincipales(true);
             EstadoBtnProcesos(false);
             tab_Principal.SelectedIndex = 0;
-        }   
+        }
+
+        private void btn_Buscar_Click(object sender, EventArgs e)
+        {
+            dgv_Principal.DataSource = negocioCategoria.BuscarPorDescripcion(txt_Buscar.Text);
+        }
+
+        private void btn_Salir_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -33,8 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,13 +47,26 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frm_Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Dashboard.Designer.cs">
+      <DependentUpon>frm_Dashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_DetalleCompra.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_DetalleCompra.Designer.cs">
       <DependentUpon>frm_DetalleCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Login.Designer.cs">
+      <DependentUpon>frm_Login.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_Proveedor.cs">
       <SubType>Form</SubType>
@@ -64,6 +80,18 @@
     <Compile Include="frm_EntradaProducto.Designer.cs">
       <DependentUpon>frm_EntradaProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_ResumenTurno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_ResumenTurno.Designer.cs">
+      <DependentUpon>frm_ResumenTurno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Seccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Seccion.Designer.cs">
+      <DependentUpon>frm_Seccion.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_StockProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,11 +104,17 @@
     <Compile Include="frm_Producto.Designer.cs">
       <DependentUpon>frm_Producto.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_UnidadMedida.cs">
+    <Compile Include="frm_TipoEmpaque.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_UnidadMedida.Designer.cs">
-      <DependentUpon>frm_UnidadMedida.cs</DependentUpon>
+    <Compile Include="frm_TipoEmpaque.Designer.cs">
+      <DependentUpon>frm_TipoEmpaque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Usuario.Designer.cs">
+      <DependentUpon>frm_Usuario.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_Marca.cs">
       <SubType>Form</SubType>
@@ -94,10 +128,34 @@
     <Compile Include="frm_Categoria.Designer.cs">
       <DependentUpon>frm_Categoria.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_VentaDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_VentaDetalle.Designer.cs">
+      <DependentUpon>frm_VentaDetalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_VentaRegistrada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_VentaRegistrada.Designer.cs">
+      <DependentUpon>frm_VentaRegistrada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Ventas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Ventas.Designer.cs">
+      <DependentUpon>frm_Ventas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frm_Dashboard.resx">
+      <DependentUpon>frm_Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_DetalleCompra.resx">
       <DependentUpon>frm_DetalleCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Login.resx">
+      <DependentUpon>frm_Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Proveedor.resx">
       <DependentUpon>frm_Proveedor.cs</DependentUpon>
@@ -105,20 +163,38 @@
     <EmbeddedResource Include="frm_EntradaProducto.resx">
       <DependentUpon>frm_EntradaProducto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_ResumenTurno.resx">
+      <DependentUpon>frm_ResumenTurno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Seccion.resx">
+      <DependentUpon>frm_Seccion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_StockProducto.resx">
       <DependentUpon>frm_StockProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Producto.resx">
       <DependentUpon>frm_Producto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_UnidadMedida.resx">
-      <DependentUpon>frm_UnidadMedida.cs</DependentUpon>
+    <EmbeddedResource Include="frm_TipoEmpaque.resx">
+      <DependentUpon>frm_TipoEmpaque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Usuario.resx">
+      <DependentUpon>frm_Usuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Marca.resx">
       <DependentUpon>frm_Marca.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Categoria.resx">
       <DependentUpon>frm_Categoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_VentaDetalle.resx">
+      <DependentUpon>frm_VentaDetalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_VentaRegistrada.resx">
+      <DependentUpon>frm_VentaRegistrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Ventas.resx">
+      <DependentUpon>frm_Ventas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

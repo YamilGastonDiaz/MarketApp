@@ -12,7 +12,7 @@ namespace Dominio
         public string codigoBarra { get; set; }
         public Categoria categoria { get; set; }
         public Marca marca { get; set; }
-        public UnidadMedida unidad { get; set;}
+        public Empaque empaque { get; set; }
         public string descripcion { get; set; }
         public decimal stock_min { get; set; }
 
@@ -21,7 +21,7 @@ namespace Dominio
             codigoBarra = string.Empty;
             categoria = new Categoria();
             marca = new Marca();
-            unidad = new UnidadMedida();
+            empaque = new Empaque();
             descripcion = string.Empty;
             stock_min = 0;
         }

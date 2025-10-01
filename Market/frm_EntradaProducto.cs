@@ -29,25 +29,28 @@ namespace Market
         public frm_EntradaProducto()
         {
             InitializeComponent();
+            txt_Buscar.CharacterCasing = CharacterCasing.Upper;
+            txt_Producto.CharacterCasing = CharacterCasing.Upper;
+            txt_ProveedorB.CharacterCasing = CharacterCasing.Upper;
         }
 
         private void CargarLista()
         {
             compraLista = negocioCompra.ListarCompra();
             dgv_Principal.DataSource = compraLista;
-            FormatoCategoria();
+            FormatoEntradaProducto();
         }
 
-        private void FormatoCategoria()
+        private void FormatoEntradaProducto()
         {
-            dgv_Principal.Columns[0].Width = 100;
-            dgv_Principal.Columns[0].HeaderText = "ID";
-            dgv_Principal.Columns[1].Width = 280;
-            dgv_Principal.Columns[1].HeaderText = "PROVEEDOR";
-            dgv_Principal.Columns[2].Width = 150;
-            dgv_Principal.Columns[2].HeaderText = "FECHA";
-            dgv_Principal.Columns[3].Width = 150;
-            dgv_Principal.Columns[3].HeaderText = "PRECIO TOTAL";
+            dgv_Principal.Columns["id"].Width = 100;
+            dgv_Principal.Columns["id"].HeaderText = "ID";
+            dgv_Principal.Columns["proveedor"].Width = 280;
+            dgv_Principal.Columns["proveedor"].HeaderText = "PROVEEDOR";
+            dgv_Principal.Columns["fecha"].Width = 150;
+            dgv_Principal.Columns["fecha"].HeaderText = "FECHA";
+            dgv_Principal.Columns["precioTotal"].Width = 150;
+            dgv_Principal.Columns["precioTotal"].HeaderText = "PRECIO TOTAL";
         }
 
         private void EstadoBtnPrincipales(bool estado)
@@ -161,6 +164,7 @@ namespace Market
             tablaSP.Columns.Add("id_Producto", typeof(int));
             tablaSP.Columns.Add("id_Marca", typeof(int));
             tablaSP.Columns.Add("Cantidad", typeof(decimal));
+            tablaSP.Columns.Add("StockCalculado", typeof(decimal));
             tablaSP.Columns.Add("PrecioCompra", typeof(decimal));
             tablaSP.Columns.Add("Subtotal", typeof(decimal));
 
@@ -169,10 +173,11 @@ namespace Market
                 int idProducto = Convert.ToInt32(fila["id_Producto"]);
                 int idMarca = Convert.ToInt32(fila["id_Marca"]);
                 decimal cantidad = Convert.ToDecimal(fila["Cantidad"]);
+                decimal stockCalculado = Convert.ToDecimal(fila["Stock"]);
                 decimal precio = Convert.ToDecimal(fila["PrecioCompra"]);
                 decimal subtotal = Convert.ToDecimal(fila["Subtotal"]);
 
-                tablaSP.Rows.Add(idProducto, idMarca, cantidad, precio, subtotal);
+                tablaSP.Rows.Add(idProducto, idMarca, cantidad, stockCalculado, precio, subtotal);
             }
 
             return tablaSP;
@@ -180,6 +185,7 @@ namespace Market
 
         private void btn_Cancelar_Click(object sender, EventArgs e)
         {
+            txt_Proveedor.Text = "";
             txt_Proveedor.ReadOnly = true;
             dgv_ListaDetalle.Columns["Cantidad"].ReadOnly = true;
             dgv_ListaDetalle.Columns["PrecioCompra"].ReadOnly = true;
@@ -219,7 +225,10 @@ namespace Market
             TablaDetalle.Columns.Add("descripcion_P", typeof(string));
             TablaDetalle.Columns.Add("id_Marca", typeof(string));
             TablaDetalle.Columns.Add("descripcion_M", typeof(string));
+            TablaDetalle.Columns.Add("Empaque", typeof(string)); // 👈 Nueva columna visible
+            TablaDetalle.Columns.Add("TotalEmpaque", typeof(decimal));
             TablaDetalle.Columns.Add("Cantidad", typeof(decimal));
+            TablaDetalle.Columns.Add("Stock", typeof(decimal));    // 👈 Calculado
             TablaDetalle.Columns.Add("PrecioCompra", typeof(decimal));
             TablaDetalle.Columns.Add("Subtotal", typeof(decimal));
 
@@ -231,33 +240,43 @@ namespace Market
         {
             dgv_ListaDetalle.Columns["id_Producto"].Visible = false;
             dgv_ListaDetalle.Columns["id_Marca"].Visible = false;
+            dgv_ListaDetalle.Columns["TotalEmpaque"].Visible = false;
 
-            dgv_ListaDetalle.Columns["descripcion_P"].Width = 320;
+            dgv_ListaDetalle.Columns["descripcion_P"].Width = 280;
             dgv_ListaDetalle.Columns["descripcion_P"].HeaderText = "PRODUCTO";
             dgv_ListaDetalle.Columns["descripcion_M"].Width = 200;
             dgv_ListaDetalle.Columns["descripcion_M"].HeaderText = "MARCA";
+            dgv_ListaDetalle.Columns["Empaque"].Width = 100;
+            dgv_ListaDetalle.Columns["Empaque"].HeaderText = "EMPAQUE";
             dgv_ListaDetalle.Columns["Cantidad"].Width = 100;
             dgv_ListaDetalle.Columns["Cantidad"].HeaderText = "CANTIDAD";
+            dgv_ListaDetalle.Columns["Stock"].Width = 100;
+            dgv_ListaDetalle.Columns["Stock"].HeaderText = "STOCK";
             dgv_ListaDetalle.Columns["PrecioCompra"].Width = 160;
             dgv_ListaDetalle.Columns["PrecioCompra"].HeaderText = "PRECIO COMPRA";
-            dgv_ListaDetalle.Columns["Subtotal"].Width = 150;
+            dgv_ListaDetalle.Columns["Subtotal"].Width = 130;
             dgv_ListaDetalle.Columns["Subtotal"].HeaderText = "SUBTOTAL";
 
             dgv_ListaDetalle.Columns["descripcion_P"].ReadOnly = true;
             dgv_ListaDetalle.Columns["descripcion_M"].ReadOnly = true;
+            dgv_ListaDetalle.Columns["Empaque"].ReadOnly = true;
+            dgv_ListaDetalle.Columns["Stock"].ReadOnly = true;
             dgv_ListaDetalle.Columns["Cantidad"].ReadOnly = true;
             dgv_ListaDetalle.Columns["PrecioCompra"].ReadOnly = true;
             dgv_ListaDetalle.Columns["Subtotal"].ReadOnly = true;
         }
 
-        private void AgregarItem(Producto producto, Marca marca, decimal cantidad, decimal precioCompra, decimal subTotal)
+        private void AgregarItem(Producto producto, Marca marca, Empaque empaque, decimal cantidad, decimal precioCompra, decimal subTotal)
         {
             DataRow fila = TablaDetalle.NewRow();
             fila["id_Producto"] = producto.id;
             fila["descripcion_P"] = producto.descripcion;
             fila["id_Marca"] = marca.id;
             fila["descripcion_M"] = marca.descripcion;
+            fila["Empaque"] = empaque.descripcion;
+            fila["TotalEmpaque"] = empaque.cantidadxUnidad;
             fila["Cantidad"] = cantidad;
+            fila["Stock"] = 0;
             fila["PrecioCompra"] = precioCompra;
             fila["Subtotal"] = subTotal;
 
@@ -274,15 +293,15 @@ namespace Market
 
         private void FormatoProveedor()
         {
-            dgv_Proveedor.Columns[0].Visible = false;
-            dgv_Proveedor.Columns[1].Width = 200;
-            dgv_Proveedor.Columns[1].HeaderText = "NOMBRE";
-            dgv_Proveedor.Columns[2].Visible = false;
-            dgv_Proveedor.Columns[3].Visible = false;
-            dgv_Proveedor.Columns[4].Visible = false;
-            dgv_Proveedor.Columns[5].Visible = false;
-            dgv_Proveedor.Columns[6].Width = 200;
-            dgv_Proveedor.Columns[6].HeaderText = "EMPRESA";
+            dgv_Proveedor.Columns["id"].Visible = false;
+            dgv_Proveedor.Columns["nombre"].Width = 200;
+            dgv_Proveedor.Columns["nombre"].HeaderText = "NOMBRE";
+            dgv_Proveedor.Columns["cuit"].Visible = false;
+            dgv_Proveedor.Columns["direccion"].Visible = false;
+            dgv_Proveedor.Columns["telefono"].Visible = false;
+            dgv_Proveedor.Columns["mail"].Visible = false;
+            dgv_Proveedor.Columns["empresa"].Width = 200;
+            dgv_Proveedor.Columns["empresa"].HeaderText = "EMPRESA";
         }
 
         private void SelecionProveedor()
@@ -322,14 +341,15 @@ namespace Market
             var listaMostrar = listar.Select(p => new
             {
                 id = p.id,
+                descripcion = p.descripcion,
                 codigoBarra = p.codigoBarra,
                 categoria = p.categoria.descripcion,
                 idCategoria = p.categoria.id,
                 marca = p.marca.descripcion,
                 idMarca = p.marca.id,
-                unidad = p.unidad.descripcion,
-                idUnidad = p.unidad.id,
-                descripcion = p.descripcion,
+                idEmpaque = p.empaque.id,
+                totalEmpaque = p.empaque.cantidadxUnidad,
+                empaque = p.empaque.descripcion,
                 stock_min = p.stock_min,
             }).ToList();
 
@@ -344,17 +364,18 @@ namespace Market
             dgv_Producto.Columns["codigoBarra"].Visible = false;
             dgv_Producto.Columns["idCategoria"].Visible = false;
             dgv_Producto.Columns["idMarca"].Visible = false;
-            dgv_Producto.Columns["idUnidad"].Visible = false;
+            dgv_Producto.Columns["idEmpaque"].Visible = false;
             dgv_Producto.Columns["stock_min"].Visible = false;
+            dgv_Producto.Columns["totalEmpaque"].Visible = false;
 
+            dgv_Producto.Columns["descripcion"].Width = 250;
+            dgv_Producto.Columns["descripcion"].HeaderText = "PRODUCTO";
             dgv_Producto.Columns["categoria"].Width = 200;
             dgv_Producto.Columns["categoria"].HeaderText = "CATEGORIA";
             dgv_Producto.Columns["marca"].Width = 200;
             dgv_Producto.Columns["marca"].HeaderText = "MARCA";
-            dgv_Producto.Columns["unidad"].Width = 100;
-            dgv_Producto.Columns["unidad"].HeaderText = "MEDIDA";
-            dgv_Producto.Columns["descripcion"].Width = 250;
-            dgv_Producto.Columns["descripcion"].HeaderText = "PRODUCTO";
+            dgv_Producto.Columns["empaque"].Width = 150;
+            dgv_Producto.Columns["empaque"].HeaderText = "TOTAL X CAJA";
         }
 
         private void SelecionProducto()
@@ -367,6 +388,7 @@ namespace Market
             {
                 Producto producto = new Producto();
                 Marca marca = new Marca();
+                Empaque empaque = new Empaque();
                 decimal cantidad;
                 decimal precioCompra;
                 decimal subTotal;
@@ -390,12 +412,14 @@ namespace Market
 
                     marca.id = Convert.ToInt32(dgv_Producto.CurrentRow.Cells["idMarca"].Value);
                     marca.descripcion = Convert.ToString(dgv_Producto.CurrentRow.Cells["marca"].Value);
+                    empaque.descripcion = Convert.ToString(dgv_Producto.CurrentRow.Cells["empaque"].Value);
+                    empaque.cantidadxUnidad = Convert.ToDecimal(dgv_Producto.CurrentRow.Cells["totalEmpaque"].Value);
                     cantidad = 0;
                     precioCompra = 0;
                     subTotal = 0;
 
 
-                    AgregarItem(producto, marca, cantidad, precioCompra, subTotal);
+                    AgregarItem(producto, marca, empaque, cantidad, precioCompra, subTotal);
                 }
             }
         }
@@ -438,8 +462,10 @@ namespace Market
             DataRow fila = (DataRow)TablaDetalle.Rows[e.RowIndex];
             decimal cantidad = Convert.ToDecimal(fila["Cantidad"]);
             decimal precio = Convert.ToDecimal(fila["PrecioCompra"]);
+            decimal totalEmpaque = Convert.ToDecimal(fila["TotalEmpaque"]);
 
             fila["Subtotal"] = decimal.Round(cantidad * precio, 2).ToString("N2");
+            fila["Stock"] = decimal.Round(cantidad * totalEmpaque, 2);
 
             CalcularTotalDetalle();
         }
@@ -490,6 +516,26 @@ namespace Market
         {
             MessageBox.Show("Ingrese solo valores numéricos en esta columna.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             e.Cancel = true;
+        }
+
+        private void btn_Buscar_Click(object sender, EventArgs e)
+        {
+            dgv_Principal.DataSource = negocioCompra.BuscarPorNombre(txt_Buscar.Text);
+        }
+
+        private void btn_BuscarPR_Click(object sender, EventArgs e)
+        {
+            dgv_Producto.DataSource = negocioProducto.BuscarPorDescripcion(txt_Producto.Text);            
+        }
+
+        private void btn_BuscarP1_Click(object sender, EventArgs e)
+        {
+            dgv_Proveedor.DataSource = negocioProveedor.BuscarPorEmpresa(txt_ProveedorB.Text);
+        }
+
+        private void btn_Salir_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

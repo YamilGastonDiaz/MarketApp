@@ -11,7 +11,7 @@ namespace Negocio
 {
     public class NegocioStockProducto
     {
-        ConexionDB datos = new ConexionDB();
+        private ConexionDB datos = new ConexionDB();
 
         public void AgregarStockProducto(int id, decimal stock, decimal precioD, decimal precioN)
         {
@@ -90,7 +90,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM StockProductos WHERE id_Producto = @idProducto");
+                datos.setearConsulta("SELECT COUNT(*) FROM StockProductos WHERE id_Producto = @idProducto AND Stock_actual > 0");
                 datos.setearParametro("@idProducto", idProducto);
 
                 count = datos.ejecutarScalar();

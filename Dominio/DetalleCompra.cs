@@ -27,5 +27,13 @@ namespace Dominio
             precioCompra = 0;
             subTotal = 0;
         }
+
+        public string empaqueDescripcion
+        {
+            get
+            {
+                return producto?.empaque?.descripcion ?? "";
+            }
+        } 
     }
 }

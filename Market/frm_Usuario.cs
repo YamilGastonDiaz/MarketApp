@@ -12,33 +12,37 @@ using System.Windows.Forms;
 
 namespace Market
 {
-    public partial class frm_UnidadMedida : Form
+    public partial class frm_Usuario : Form
     {
-        private NegocioUnidadMedida negocioUnidad = new NegocioUnidadMedida();
-        private List<UnidadMedida> listar;
+        private NegocioUsuario negocioUsuario = new NegocioUsuario();
+        private List<Usuario> listar;
         private bool editar = false;
         private int idEditar = 0;
 
-        public frm_UnidadMedida()
+        public frm_Usuario()
         {
             InitializeComponent();
+            txt_Nombre.CharacterCasing = CharacterCasing.Upper;
+            txt_Buscar.CharacterCasing = CharacterCasing.Upper;
         }
 
         private void CargarLista()
         {
-            listar = negocioUnidad.ListarUnidad();
+            listar = negocioUsuario.ListarUser();
             dgv_Principal.DataSource = listar;
-            FormatoUnidad();
+            FormatoUser();
         }
 
-        private void FormatoUnidad()
+        private void FormatoUser()
         {
-            dgv_Principal.Columns[0].Width = 80;
-            dgv_Principal.Columns[0].HeaderText = "ID";
-            dgv_Principal.Columns[1].Width = 150;
-            dgv_Principal.Columns[1].HeaderText = "ABREVIATURA";
-            dgv_Principal.Columns[2].Width = 300;
-            dgv_Principal.Columns[2].HeaderText = "UNIDAD MEDIDA";
+            dgv_Principal.Columns["id"].Width = 80;
+            dgv_Principal.Columns["id"].HeaderText = "ID";
+            dgv_Principal.Columns["nombre"].Width = 150;
+            dgv_Principal.Columns["nombre"].HeaderText = "NOMBRE";
+            dgv_Principal.Columns["usuario"].Width = 300;
+            dgv_Principal.Columns["usuario"].HeaderText = "USUARIO";
+            dgv_Principal.Columns["contrasenia"].Visible = false;           
+            dgv_Principal.Columns["rol"].Visible = false;
         }
 
         private void EstadoBtnPrincipales(bool estado)
@@ -56,33 +60,38 @@ namespace Market
             btn_Guardar.Visible = estado;
         }
 
-        private void frm_UnidadMedida_Load(object sender, EventArgs e)
+        private void frm_Usuario_Load(object sender, EventArgs e)
         {
             CargarLista();
+            txt_Pass.UseSystemPasswordChar = true;
         }
 
         private void btn_Nuevo_Click(object sender, EventArgs e)
         {
             EstadoBtnPrincipales(false);
             EstadoBtnProcesos(true);
-            txt_Medida_dc.Text = "";
-            txt_Abreviatura.Text = "";
-            txt_Medida_dc.ReadOnly = false;
-            txt_Abreviatura.ReadOnly = false;
+            txt_Nombre.Text = "";
+            txt_User.Text = "";
+            txt_Pass.Text = "";
+            txt_Nombre.ReadOnly = false;
+            txt_User.ReadOnly = false;
+            txt_Pass.ReadOnly = false;
             tab_Principal.SelectedIndex = 1;
-            txt_Medida_dc.Focus();
+            txt_Nombre.Focus();
         }
 
         private void btn_Actualizar_Click(object sender, EventArgs e)
         {
             if (dgv_Principal.CurrentRow != null)
             {
-                UnidadMedida seleccionada = (UnidadMedida)dgv_Principal.CurrentRow.DataBoundItem;
+                Usuario seleccionada = (Usuario)dgv_Principal.CurrentRow.DataBoundItem;
 
-                txt_Medida_dc.Text = seleccionada.descripcion;
-                txt_Abreviatura.Text = seleccionada.abreviatura;
-                txt_Abreviatura.ReadOnly = false;
-                txt_Medida_dc.ReadOnly = false;
+                txt_Nombre.Text = seleccionada.nombre;
+                txt_User.Text = seleccionada.usuario;
+                txt_Pass.Text = seleccionada.contrasenia;
+                txt_User.ReadOnly = false;
+                txt_Nombre.ReadOnly = false;
+                txt_Pass.ReadOnly = false;
                 tab_Principal.SelectedIndex = 1;
 
                 editar = true;
@@ -110,12 +119,12 @@ namespace Market
 
                 if (opcion == DialogResult.Yes)
                 {
-                    Categoria seleccionada = (Categoria)dgv_Principal.CurrentRow.DataBoundItem;
+                    Usuario seleccionada = (Usuario)dgv_Principal.CurrentRow.DataBoundItem;
                     int idEliminar = seleccionada.id;
 
-                    negocioUnidad.EliminarUnidad(idEliminar);
+                    negocioUsuario.EliminarUser(idEliminar);
 
-                    MessageBox.Show("Categoría eliminada correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Usuario eliminado correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarLista();
                 }
             }
@@ -123,45 +132,49 @@ namespace Market
 
         private void btn_Guardar_Click(object sender, EventArgs e)
         {
-            string abreviatura = txt_Abreviatura.Text.Trim();
-            string descripcion = txt_Medida_dc.Text.Trim();
+            string usuario = txt_User.Text.Trim();
+            string nombre = txt_Nombre.Text.Trim();
+            string pass = txt_Pass.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(abreviatura) || string.IsNullOrWhiteSpace(descripcion))
+            if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(pass))
             {
                 MessageBox.Show("Falta ingresar datos requerido (*)", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else 
             {
-                UnidadMedida unidad = new UnidadMedida();
+                Usuario user = new Usuario();
 
-                if(negocioUnidad.ExisteUnidad(abreviatura, descripcion))
+                if(negocioUsuario.ExisteUser(usuario))
                 {
-                    MessageBox.Show("Ya existe una categoría con esa descripción.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ya existe un usuario con esa descripción.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                unidad.abreviatura = abreviatura;
-                unidad.descripcion = descripcion;
+                user.nombre = nombre;
+                user.usuario = usuario;
+                user.contrasenia = pass;
 
                 if (editar)
                 {
-                    unidad.id = idEditar;
-                    negocioUnidad.ModificarUnidad(unidad);
+                    user.id = idEditar;
+                    negocioUsuario.ModificarUser(user);
                     MessageBox.Show("Los datos han sido modificados correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    negocioUnidad.AgregarUnidad(unidad);
+                    negocioUsuario.RegistroUser(user);
                     MessageBox.Show("Los datos han sido guardados correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                     
                 CargarLista();
                 EstadoBtnPrincipales(true);
                 EstadoBtnProcesos(false);
-                txt_Medida_dc.Text = "";
-                txt_Abreviatura.Text = "";
-                txt_Medida_dc.ReadOnly = true;
-                txt_Abreviatura.ReadOnly = true;
+                txt_Nombre.Text = "";
+                txt_User.Text = "";
+                txt_Pass.Text = "";
+                txt_Nombre.ReadOnly = true;
+                txt_User.ReadOnly = true;
+                txt_Pass.ReadOnly = true;
                 tab_Principal.SelectedIndex = 0;
 
                 editar = false;
@@ -171,13 +184,25 @@ namespace Market
 
         private void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            txt_Medida_dc.Text = "";
-            txt_Abreviatura.Text = "";
-            txt_Medida_dc.ReadOnly = true;
-            txt_Abreviatura.ReadOnly = true;
+            txt_Nombre.Text = "";
+            txt_User.Text = "";
+            txt_Pass.Text = "";
+            txt_Nombre.ReadOnly = true;
+            txt_User.ReadOnly = true;
+            txt_Pass.ReadOnly = true;
             EstadoBtnPrincipales(true);
             EstadoBtnProcesos(false);
             tab_Principal.SelectedIndex = 0;
-        }   
+        }
+
+        private void btn_Buscar_Click(object sender, EventArgs e)
+        {
+            dgv_Principal.DataSource = negocioUsuario.BuscarPorNombre(txt_Buscar.Text);
+        }
+
+        private void btn_Salir_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

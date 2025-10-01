@@ -28,28 +28,41 @@ namespace Market
         {
             listar = negocioDetalle.ListarDetalle(productoSeleccionado.id);
             dgv_listarDetalle.DataSource = listar;
-            FormatoCategoria();
+            FormatoDetalleCompra();
         }
 
-        private void FormatoCategoria()
+        private void FormatoDetalleCompra()
         {
-            dgv_listarDetalle.Columns[0].Visible = false;
-            dgv_listarDetalle.Columns[1].Visible = false;
-            dgv_listarDetalle.Columns[2].Width = 250;
-            dgv_listarDetalle.Columns[2].HeaderText = "PRODUCTO";
-            dgv_listarDetalle.Columns[3].Width = 220;
-            dgv_listarDetalle.Columns[3].HeaderText = "MARCA";
-            dgv_listarDetalle.Columns[4].Width = 130;
-            dgv_listarDetalle.Columns[4].HeaderText = "CANTIDAD";
-            dgv_listarDetalle.Columns[5].Width = 160;
-            dgv_listarDetalle.Columns[5].HeaderText = "PRECIO COMPRA";
-            dgv_listarDetalle.Columns[6].Width = 130;
-            dgv_listarDetalle.Columns[6].HeaderText = "SUBTOTAL";
+            dgv_listarDetalle.Columns["id"].Visible = false;
+            dgv_listarDetalle.Columns["compra"].Visible = false;
+            dgv_listarDetalle.Columns["producto"].Width = 250;
+            dgv_listarDetalle.Columns["producto"].HeaderText = "PRODUCTO";
+            dgv_listarDetalle.Columns["producto"].DisplayIndex = 0;
+            dgv_listarDetalle.Columns["marca"].Width = 220;
+            dgv_listarDetalle.Columns["marca"].HeaderText = "MARCA";
+            dgv_listarDetalle.Columns["marca"].DisplayIndex = 1;
+            dgv_listarDetalle.Columns["empaqueDescripcion"].Width = 150;
+            dgv_listarDetalle.Columns["empaqueDescripcion"].HeaderText = "EMPAQUE";
+            dgv_listarDetalle.Columns["empaqueDescripcion"].DisplayIndex = 2;
+            dgv_listarDetalle.Columns["cantidad"].Width = 130;
+            dgv_listarDetalle.Columns["cantidad"].HeaderText = "CANTIDAD";
+            dgv_listarDetalle.Columns["cantidad"].DisplayIndex = 3;
+            dgv_listarDetalle.Columns["precioCompra"].Width = 160;
+            dgv_listarDetalle.Columns["precioCompra"].HeaderText = "PRECIO COMPRA";
+            dgv_listarDetalle.Columns["precioCompra"].DisplayIndex = 4;
+            dgv_listarDetalle.Columns["subTotal"].Width = 130;
+            dgv_listarDetalle.Columns["subTotal"].HeaderText = "SUBTOTAL";
+            dgv_listarDetalle.Columns["subTotal"].DisplayIndex = 5;
         }
 
         private void frm_DetalleCompra_Load(object sender, EventArgs e)
         {
             CargarLista();
+        }
+
+        private void btn_Cerrar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

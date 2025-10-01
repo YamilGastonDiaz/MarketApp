@@ -22,6 +22,11 @@ namespace Market
         public frm_Proveedor()
         {
             InitializeComponent();
+            txt_Nombre.CharacterCasing = CharacterCasing.Upper;
+            txt_Direccion.CharacterCasing = CharacterCasing.Upper;
+            txt_Mail.CharacterCasing = CharacterCasing.Upper;
+            txt_Empresa.CharacterCasing = CharacterCasing.Upper;
+            txt_Buscar.CharacterCasing = CharacterCasing.Upper;
             txt_Cuit.KeyPress += SoloNumeros_KeyPress;
             txt_Telefono.KeyPress += SoloNumeros_KeyPress;
         }
@@ -35,19 +40,19 @@ namespace Market
 
         private void FormatoProveedor()
         {
-            dgv_Principal.Columns[0].Visible = false;
-            dgv_Principal.Columns[1].Width = 200;
-            dgv_Principal.Columns[1].HeaderText = "NOMBRE";
-            dgv_Principal.Columns[2].Width = 150;
-            dgv_Principal.Columns[2].HeaderText = "CUIT";
-            dgv_Principal.Columns[3].Width = 250;
-            dgv_Principal.Columns[3].HeaderText = "DIRECCION";
-            dgv_Principal.Columns[4].Width = 150;
-            dgv_Principal.Columns[4].HeaderText = "TELEFONO";
-            dgv_Principal.Columns[5].Width = 200;
-            dgv_Principal.Columns[5].HeaderText = "EMAIL";
-            dgv_Principal.Columns[6].Width = 150;
-            dgv_Principal.Columns[6].HeaderText = "EMPRESA";
+            dgv_Principal.Columns["id"].Visible = false;
+            dgv_Principal.Columns["nombre"].Width = 200;
+            dgv_Principal.Columns["nombre"].HeaderText = "NOMBRE";
+            dgv_Principal.Columns["cuit"].Width = 150;
+            dgv_Principal.Columns["cuit"].HeaderText = "CUIT";
+            dgv_Principal.Columns["direccion"].Width = 250;
+            dgv_Principal.Columns["direccion"].HeaderText = "DIRECCION";
+            dgv_Principal.Columns["telefono"].Width = 150;
+            dgv_Principal.Columns["telefono"].HeaderText = "TELEFONO";
+            dgv_Principal.Columns["mail"].Width = 200;
+            dgv_Principal.Columns["mail"].HeaderText = "EMAIL";
+            dgv_Principal.Columns["empresa"].Width = 150;
+            dgv_Principal.Columns["empresa"].HeaderText = "EMPRESA";
         }
 
         private void EstadoBtnPrincipales(bool estado)
@@ -141,7 +146,7 @@ namespace Market
 
                     negocioProveedor.EliminarProveedor(idEliminar);
 
-                    MessageBox.Show("Categoría eliminada correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Proveedor eliminado/a correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarLista();
                 }
             }
@@ -206,7 +211,17 @@ namespace Market
         private void btn_Cancelar_Click(object sender, EventArgs e)
         {
             txt_Nombre.Text = "";
+            txt_Cuit.Text = "";
+            txt_Direccion.Text = "";
+            txt_Telefono.Text = "";
+            txt_Mail.Text = "";
+            txt_Empresa.Text = "";
             txt_Nombre.ReadOnly = true;
+            txt_Cuit.ReadOnly = true;
+            txt_Direccion.ReadOnly = true;
+            txt_Telefono.ReadOnly = true;
+            txt_Mail.ReadOnly = true;
+            txt_Empresa.ReadOnly = true;
             EstadoBtnPrincipales(true);
             EstadoBtnProcesos(false);
             tab_Principal.SelectedIndex = 0;
@@ -218,6 +233,16 @@ namespace Market
             {
                 e.Handled = true;
             }
+        }
+
+        private void btn_Buscar_Click(object sender, EventArgs e)
+        {
+            dgv_Principal.DataSource = negocioProveedor.BuscarPorEmpresa(txt_Buscar.Text);
+        }
+
+        private void btn_Salir_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
