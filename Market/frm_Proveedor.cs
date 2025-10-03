@@ -18,10 +18,12 @@ namespace Market
         private List<Proveedor> listar;
         private bool editar = false;
         private int idEditar = 0;
+        private const string PlaceholderTexto = "INGRESE EMPRESA";
 
         public frm_Proveedor()
         {
             InitializeComponent();
+            TextBoxPlaceholder.SetPlaceholder(txt_Buscar, PlaceholderTexto);
             txt_Nombre.CharacterCasing = CharacterCasing.Upper;
             txt_Direccion.CharacterCasing = CharacterCasing.Upper;
             txt_Mail.CharacterCasing = CharacterCasing.Upper;
@@ -60,7 +62,6 @@ namespace Market
             btn_Nuevo.Enabled = estado;
             btn_Actualizar.Enabled = estado;
             btn_Elimiar.Enabled = estado;
-            btn_Reporte.Enabled = estado;
             btn_Salir.Enabled = estado;
         }
 
@@ -237,7 +238,17 @@ namespace Market
 
         private void btn_Buscar_Click(object sender, EventArgs e)
         {
-            dgv_Principal.DataSource = negocioProveedor.BuscarPorEmpresa(txt_Buscar.Text);
+            string texto = txt_Buscar.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto)
+            {
+                CargarLista();
+                return;
+            }
+            else
+            {
+                dgv_Principal.DataSource = negocioProveedor.BuscarPorEmpresa(texto);
+            }
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)

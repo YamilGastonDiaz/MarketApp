@@ -56,7 +56,7 @@ namespace Negocio
             ProductoVenta aux = new ProductoVenta();
             try
             {
-                datos.setearConsulta("SELECT p.Producto_id, m.Marca_id, m.Descripcion as Marca, p.Descripcion, sp.PrecioDia, sp.PrecioNoche\r\nFROM Productos as p\r\nINNER JOIN Marcas as m on m.Marca_id = p.id_Marca\r\nINNER JOIN StockProductos as sp on sp.id_Producto = p.Producto_id\r\nWHERE p.CodigoBarras = @CodigoBarras");
+                datos.setearConsulta("SELECT p.Producto_id, m.Marca_id, m.Descripcion as Marca, p.Descripcion, sp.PrecioDia, sp.PrecioNoche, sp.Stock_actual, p.Stock_min\r\nFROM Productos as p\r\nINNER JOIN Marcas as m on m.Marca_id = p.id_Marca\r\nINNER JOIN StockProductos as sp on sp.id_Producto = p.Producto_id\r\nWHERE p.CodigoBarras = @CodigoBarras");
                 datos.setearParametro("@CodigoBarras", codigoBarras);
 
                 datos.ejecutarRead();
@@ -73,6 +73,13 @@ namespace Negocio
                         aux.marca.descripcion = (string)datos.Lector["Marca"];
                     }
 
+                    if (!(datos.Lector["Stock_actual"] is DBNull))
+                    {
+                        aux.stock = new StockProducto();
+                        aux.stock.stock_actual = (decimal)datos.Lector["Stock_actual"];
+                    }
+
+                    aux.stock_Min = (decimal)datos.Lector["Stock_min"];
                     aux.precioDia = (decimal)datos.Lector["PrecioDia"];
                     aux.precioNoche = (decimal)datos.Lector["PrecioNoche"];
                 }

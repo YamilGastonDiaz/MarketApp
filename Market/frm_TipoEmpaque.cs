@@ -18,10 +18,12 @@ namespace Market
         private List<Empaque> listar;
         private bool editar = false;
         private int idEditar = 0;
+        private const string PlaceholderTexto = "INGRESE DESCRIPCION";
 
         public frm_TipoEmpaque()
         {
             InitializeComponent();
+            TextBoxPlaceholder.SetPlaceholder(txt_Buscar, PlaceholderTexto);
             txt_Descripcion.CharacterCasing = CharacterCasing.Upper;
             txt_Buscar.CharacterCasing = CharacterCasing.Upper;
         }
@@ -48,7 +50,6 @@ namespace Market
             btn_Nuevo.Enabled = estado;
             btn_Actualizar.Enabled = estado;
             btn_Elimiar.Enabled = estado;
-            btn_Reporte.Enabled = estado;
             btn_Salir.Enabled = estado;
         }
 
@@ -190,7 +191,17 @@ namespace Market
 
         private void btn_Buscar_Click(object sender, EventArgs e)
         {
-            dgv_Principal.DataSource = negocioEmpaque.BuscarPorDescripcion(txt_Buscar.Text);
+            string texto = txt_Buscar.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto)
+            {
+                CargarLista();
+                return;
+            }
+            else
+            {
+                dgv_Principal.DataSource = negocioEmpaque.BuscarPorDescripcion(texto);
+            }
         }
         private void btn_Salir_Click(object sender, EventArgs e)
         {

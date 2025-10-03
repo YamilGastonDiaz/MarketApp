@@ -148,6 +148,7 @@
             this.txt_Buscar.Name = "txt_Buscar";
             this.txt_Buscar.Size = new System.Drawing.Size(368, 22);
             this.txt_Buscar.TabIndex = 1;
+            this.txt_Buscar.Text = "INGRESE NOMBRE";
             // 
             // lbl_Buscar
             // 

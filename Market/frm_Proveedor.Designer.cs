@@ -55,7 +55,6 @@
             this.btn_Nuevo = new System.Windows.Forms.Button();
             this.btn_Actualizar = new System.Windows.Forms.Button();
             this.btn_Elimiar = new System.Windows.Forms.Button();
-            this.btn_Reporte = new System.Windows.Forms.Button();
             this.btn_Salir = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
@@ -145,6 +144,7 @@
             this.txt_Buscar.Name = "txt_Buscar";
             this.txt_Buscar.Size = new System.Drawing.Size(368, 22);
             this.txt_Buscar.TabIndex = 1;
+            this.txt_Buscar.Text = "INGRESE EMPRESA";
             // 
             // lbl_Buscar
             // 
@@ -376,22 +376,6 @@
             this.btn_Elimiar.UseVisualStyleBackColor = false;
             this.btn_Elimiar.Click += new System.EventHandler(this.btn_Eliminar_Click);
             // 
-            // btn_Reporte
-            // 
-            this.btn_Reporte.BackColor = System.Drawing.Color.Black;
-            this.btn_Reporte.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Reporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Reporte.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_Reporte.Image = ((System.Drawing.Image)(resources.GetObject("btn_Reporte.Image")));
-            this.btn_Reporte.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Reporte.Location = new System.Drawing.Point(324, 470);
-            this.btn_Reporte.Name = "btn_Reporte";
-            this.btn_Reporte.Size = new System.Drawing.Size(94, 57);
-            this.btn_Reporte.TabIndex = 4;
-            this.btn_Reporte.Text = "REPORTE";
-            this.btn_Reporte.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_Reporte.UseVisualStyleBackColor = false;
-            // 
             // btn_Salir
             // 
             this.btn_Salir.BackColor = System.Drawing.Color.Black;
@@ -400,7 +384,7 @@
             this.btn_Salir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Salir.Image = ((System.Drawing.Image)(resources.GetObject("btn_Salir.Image")));
             this.btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Salir.Location = new System.Drawing.Point(424, 470);
+            this.btn_Salir.Location = new System.Drawing.Point(324, 469);
             this.btn_Salir.Name = "btn_Salir";
             this.btn_Salir.Size = new System.Drawing.Size(75, 57);
             this.btn_Salir.TabIndex = 5;
@@ -437,7 +421,6 @@
             this.ClientSize = new System.Drawing.Size(1159, 544);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_Salir);
-            this.Controls.Add(this.btn_Reporte);
             this.Controls.Add(this.btn_Elimiar);
             this.Controls.Add(this.btn_Actualizar);
             this.Controls.Add(this.btn_Nuevo);
@@ -471,7 +454,6 @@
         private System.Windows.Forms.Button btn_Nuevo;
         private System.Windows.Forms.Button btn_Actualizar;
         private System.Windows.Forms.Button btn_Elimiar;
-        private System.Windows.Forms.Button btn_Reporte;
         private System.Windows.Forms.Button btn_Salir;
         private System.Windows.Forms.TextBox txt_Nombre;
         private System.Windows.Forms.Label lbl_Categoria;

@@ -16,10 +16,12 @@ namespace Market
     {
         NegocioVenta negocioVenta = new NegocioVenta();
         private List<Venta> ventaLista;
+        private const string PlaceholderTexto = "INGRESE NOMBRE";
 
         public frm_VentaRegistrada()
         {
             InitializeComponent();
+            TextBoxPlaceholder.SetPlaceholder(txt_Buscar, PlaceholderTexto);
             txt_Buscar.CharacterCasing = CharacterCasing.Upper;
         }
 
@@ -61,7 +63,17 @@ namespace Market
 
         private void btn_Buscar_Click(object sender, EventArgs e)
         {
-            dgv_Principal.DataSource = negocioVenta.BuscarPorNombre(txt_Buscar.Text);
+            string texto = txt_Buscar.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto)
+            {
+                CargarLista();
+                return;
+            }
+            else
+            {
+                dgv_Principal.DataSource = negocioVenta.BuscarPorNombre(txt_Buscar.Text);
+            }
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)

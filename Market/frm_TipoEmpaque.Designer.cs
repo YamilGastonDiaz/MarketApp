@@ -47,7 +47,6 @@
             this.btn_Nuevo = new System.Windows.Forms.Button();
             this.btn_Actualizar = new System.Windows.Forms.Button();
             this.btn_Elimiar = new System.Windows.Forms.Button();
-            this.btn_Reporte = new System.Windows.Forms.Button();
             this.btn_Salir = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -110,7 +109,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_Principal.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_Principal.EnableHeadersVisualStyles = false;
-            this.dgv_Principal.Location = new System.Drawing.Point(6, 53);
+            this.dgv_Principal.Location = new System.Drawing.Point(21, 58);
             this.dgv_Principal.Name = "dgv_Principal";
             this.dgv_Principal.ReadOnly = true;
             this.dgv_Principal.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -135,6 +134,7 @@
             this.txt_Buscar.Name = "txt_Buscar";
             this.txt_Buscar.Size = new System.Drawing.Size(361, 22);
             this.txt_Buscar.TabIndex = 1;
+            this.txt_Buscar.Text = "INGRESE DESCRIPCION";
             // 
             // lbl_Buscar
             // 
@@ -277,22 +277,6 @@
             this.btn_Elimiar.UseVisualStyleBackColor = false;
             this.btn_Elimiar.Click += new System.EventHandler(this.btn_Eliminar_Click);
             // 
-            // btn_Reporte
-            // 
-            this.btn_Reporte.BackColor = System.Drawing.Color.Black;
-            this.btn_Reporte.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Reporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Reporte.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_Reporte.Image = ((System.Drawing.Image)(resources.GetObject("btn_Reporte.Image")));
-            this.btn_Reporte.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Reporte.Location = new System.Drawing.Point(311, 467);
-            this.btn_Reporte.Name = "btn_Reporte";
-            this.btn_Reporte.Size = new System.Drawing.Size(90, 57);
-            this.btn_Reporte.TabIndex = 4;
-            this.btn_Reporte.Text = "REPORTE";
-            this.btn_Reporte.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_Reporte.UseVisualStyleBackColor = false;
-            // 
             // btn_Salir
             // 
             this.btn_Salir.BackColor = System.Drawing.Color.Black;
@@ -301,7 +285,7 @@
             this.btn_Salir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Salir.Image = ((System.Drawing.Image)(resources.GetObject("btn_Salir.Image")));
             this.btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Salir.Location = new System.Drawing.Point(407, 467);
+            this.btn_Salir.Location = new System.Drawing.Point(311, 466);
             this.btn_Salir.Name = "btn_Salir";
             this.btn_Salir.Size = new System.Drawing.Size(75, 57);
             this.btn_Salir.TabIndex = 5;
@@ -338,7 +322,6 @@
             this.ClientSize = new System.Drawing.Size(784, 539);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_Salir);
-            this.Controls.Add(this.btn_Reporte);
             this.Controls.Add(this.btn_Elimiar);
             this.Controls.Add(this.btn_Actualizar);
             this.Controls.Add(this.btn_Nuevo);
@@ -372,7 +355,6 @@
         private System.Windows.Forms.Button btn_Nuevo;
         private System.Windows.Forms.Button btn_Actualizar;
         private System.Windows.Forms.Button btn_Elimiar;
-        private System.Windows.Forms.Button btn_Reporte;
         private System.Windows.Forms.Button btn_Salir;
         private System.Windows.Forms.TextBox txt_Descripcion;
         private System.Windows.Forms.Label lbl_Medida;

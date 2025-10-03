@@ -15,7 +15,8 @@ namespace Market
     public partial class frm_Ventas : Form
     {
         private NegocioVenta negocioVenta = new NegocioVenta();
-        NegocioTurno negocioTurno = new NegocioTurno();
+        private NegocioTurno negocioTurno = new NegocioTurno();
+        private ProductoVenta producto = new ProductoVenta();
         private DataTable TablaDetalle;
 
         private void Foco() 
@@ -70,6 +71,8 @@ namespace Market
             TablaDetalle.Columns.Add("Cantidad", typeof(decimal));
             TablaDetalle.Columns.Add("PrecioUnitario", typeof(decimal));
             TablaDetalle.Columns.Add("Subtotal", typeof(decimal));
+            TablaDetalle.Columns.Add("Stock_min", typeof(decimal)); // nuevo
+            TablaDetalle.Columns.Add("Stock_actual", typeof(decimal)); // nuevo
 
             dgv_Principal.DataSource = TablaDetalle;
             FormatoDetalle();
@@ -79,6 +82,8 @@ namespace Market
         {
             dgv_Principal.Columns["id"].Visible = false;
             dgv_Principal.Columns["id_Marca"].Visible = false;
+            dgv_Principal.Columns["Stock_min"].Visible = false;
+            dgv_Principal.Columns["Stock_actual"].Visible = false;
 
             dgv_Principal.Columns["descripcion_P"].Width = 250;
             dgv_Principal.Columns["descripcion_P"].HeaderText = "DESCRIPCION";
@@ -126,10 +131,22 @@ namespace Market
                 }
             }
 
-            if (filaExistente != null)
+            if (filaExistente != null) 
             {
-                filaExistente["Cantidad"] = (decimal)filaExistente["Cantidad"] + 1;
-                filaExistente["Subtotal"] = (decimal)filaExistente["Cantidad"] * (decimal)filaExistente["PrecioUnitario"];
+                decimal cantidad = (decimal)filaExistente["Cantidad"] + 1;
+
+                if (cantidad > prod.stock.stock_actual) 
+                {
+                    MessageBox.Show("No hay suficiente stock para este producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                filaExistente["Cantidad"] = cantidad;
+                filaExistente["Subtotal"] = cantidad * (decimal)filaExistente["PrecioUnitario"];
+
+                if (prod.stock.stock_actual - cantidad <= prod.stock_Min)
+                {
+                    MessageBox.Show("Este producto ha llegando al stock minimo", "Aviso de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
@@ -143,6 +160,8 @@ namespace Market
                 row["Cantidad"] = 1;
                 row["PrecioUnitario"] = precio;
                 row["Subtotal"] = precio;
+                row["Stock_min"] = prod.stock_Min;
+                row["Stock_actual"] = prod.stock.stock_actual;
 
                 TablaDetalle.Rows.Add(row);
             }
@@ -152,7 +171,7 @@ namespace Market
         {
             if (!rdb_PrecioDia.Checked && !rdb_PrecioNoche.Checked)
             {
-                MessageBox.Show("Debe seleccionar primero el modo de Turno (Día o Noche).", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar primero el modo de Turno (Día o Noche).", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -166,7 +185,7 @@ namespace Market
             }
             else
             {
-                MessageBox.Show("Producto no encontrado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Producto no encontrado", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -211,8 +230,20 @@ namespace Market
             DataRow fila = (DataRow)TablaDetalle.Rows[e.RowIndex];
             decimal cantidad = Convert.ToDecimal(fila["Cantidad"]);
             decimal precio = Convert.ToDecimal(fila["PrecioUnitario"]);
+            decimal stock_Acutual = Convert.ToDecimal(fila["Stock_actual"]);
+            decimal stock_Min = Convert.ToDecimal(fila["Stock_min"]);
+
+            if (cantidad > stock_Acutual)
+            {
+                MessageBox.Show("No hay suficiente stock para este producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             fila["Subtotal"] = decimal.Round(cantidad * precio, 2).ToString("N2");
+
+            if (stock_Acutual - cantidad <= stock_Min)
+            {
+                MessageBox.Show("Este producto ha llegando al stock minimo", "Aviso de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             CalcularTotalDetalle();
             Foco();
@@ -248,7 +279,7 @@ namespace Market
 
                 if (efectivo < total)
                 {
-                    MessageBox.Show("El efectivo no puede ser menor al total.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El efectivo no puede ser menor al total.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txt_Efectivo.Text = "";
                     txt_Vuelto.Text = "0.00";
                     txt_Efectivo.Focus();
@@ -278,13 +309,13 @@ namespace Market
         {
             if (TablaDetalle.Rows.Count == 0)
             {
-                MessageBox.Show("Debe agregar al menos un producto al detalle.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe agregar al menos un producto al detalle.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txt_Total.Text) || Convert.ToDecimal(txt_Total.Text) <= 0)
             {
-                MessageBox.Show("El total no puede estar vacío o en cero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El total no puede estar vacío o en cero.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

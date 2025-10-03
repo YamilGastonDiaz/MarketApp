@@ -86,10 +86,10 @@
             this.btn_Nuevo = new System.Windows.Forms.Button();
             this.btn_Actualizar = new System.Windows.Forms.Button();
             this.btn_Elimiar = new System.Windows.Forms.Button();
-            this.btn_Reporte = new System.Windows.Forms.Button();
             this.btn_Salir = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.btn_Reporte = new System.Windows.Forms.Button();
             this.tab_Principal.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Principal)).BeginInit();
@@ -192,6 +192,7 @@
             this.txt_Buscar.Name = "txt_Buscar";
             this.txt_Buscar.Size = new System.Drawing.Size(368, 22);
             this.txt_Buscar.TabIndex = 1;
+            this.txt_Buscar.Text = "INGRESE DESCRIPCION";
             // 
             // lbl_Buscar
             // 
@@ -281,6 +282,7 @@
             this.txt_BuscarE.Name = "txt_BuscarE";
             this.txt_BuscarE.Size = new System.Drawing.Size(186, 22);
             this.txt_BuscarE.TabIndex = 3;
+            this.txt_BuscarE.Text = "INGRESE DESCRIPCION";
             // 
             // label10
             // 
@@ -306,7 +308,7 @@
             // 
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -315,8 +317,8 @@
             this.dgv_Empaque.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ActiveBorder;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
@@ -393,6 +395,7 @@
             this.txt_BuscarM.Name = "txt_BuscarM";
             this.txt_BuscarM.Size = new System.Drawing.Size(190, 22);
             this.txt_BuscarM.TabIndex = 3;
+            this.txt_BuscarM.Text = "INGRESE DESCRIPCION";
             // 
             // label6
             // 
@@ -418,7 +421,7 @@
             // 
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -427,7 +430,7 @@
             this.dgv_Marcas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.ActiveBorder;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
@@ -485,6 +488,7 @@
             this.txt_BuscarC.Name = "txt_BuscarC";
             this.txt_BuscarC.Size = new System.Drawing.Size(186, 22);
             this.txt_BuscarC.TabIndex = 3;
+            this.txt_BuscarC.Text = "INGRESE DESCRIPCION";
             // 
             // label3
             // 
@@ -510,7 +514,7 @@
             // 
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -519,8 +523,8 @@
             this.dgv_Categorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.ActiveBorder;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
@@ -750,22 +754,6 @@
             this.btn_Elimiar.UseVisualStyleBackColor = false;
             this.btn_Elimiar.Click += new System.EventHandler(this.btn_Eliminar_Click);
             // 
-            // btn_Reporte
-            // 
-            this.btn_Reporte.BackColor = System.Drawing.Color.Black;
-            this.btn_Reporte.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Reporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Reporte.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_Reporte.Image = ((System.Drawing.Image)(resources.GetObject("btn_Reporte.Image")));
-            this.btn_Reporte.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Reporte.Location = new System.Drawing.Point(303, 467);
-            this.btn_Reporte.Name = "btn_Reporte";
-            this.btn_Reporte.Size = new System.Drawing.Size(90, 57);
-            this.btn_Reporte.TabIndex = 4;
-            this.btn_Reporte.Text = "REPORTE";
-            this.btn_Reporte.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_Reporte.UseVisualStyleBackColor = false;
-            // 
             // btn_Salir
             // 
             this.btn_Salir.BackColor = System.Drawing.Color.Black;
@@ -774,9 +762,9 @@
             this.btn_Salir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Salir.Image = ((System.Drawing.Image)(resources.GetObject("btn_Salir.Image")));
             this.btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Salir.Location = new System.Drawing.Point(399, 466);
+            this.btn_Salir.Location = new System.Drawing.Point(405, 468);
             this.btn_Salir.Name = "btn_Salir";
-            this.btn_Salir.Size = new System.Drawing.Size(75, 57);
+            this.btn_Salir.Size = new System.Drawing.Size(75, 55);
             this.btn_Salir.TabIndex = 5;
             this.btn_Salir.Text = "SALIR";
             this.btn_Salir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -803,15 +791,32 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "PRODUCTOS";
             // 
+            // btn_Reporte
+            // 
+            this.btn_Reporte.BackColor = System.Drawing.Color.Black;
+            this.btn_Reporte.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_Reporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Reporte.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_Reporte.Image = ((System.Drawing.Image)(resources.GetObject("btn_Reporte.Image")));
+            this.btn_Reporte.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_Reporte.Location = new System.Drawing.Point(303, 468);
+            this.btn_Reporte.Name = "btn_Reporte";
+            this.btn_Reporte.Size = new System.Drawing.Size(96, 56);
+            this.btn_Reporte.TabIndex = 7;
+            this.btn_Reporte.Text = "REPORTE";
+            this.btn_Reporte.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btn_Reporte.UseVisualStyleBackColor = false;
+            this.btn_Reporte.Click += new System.EventHandler(this.btn_Reporte_Click);
+            // 
             // frm_Producto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
             this.ClientSize = new System.Drawing.Size(1114, 542);
+            this.Controls.Add(this.btn_Reporte);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_Salir);
-            this.Controls.Add(this.btn_Reporte);
             this.Controls.Add(this.btn_Elimiar);
             this.Controls.Add(this.btn_Actualizar);
             this.Controls.Add(this.btn_Nuevo);
@@ -854,7 +859,6 @@
         private System.Windows.Forms.Button btn_Nuevo;
         private System.Windows.Forms.Button btn_Actualizar;
         private System.Windows.Forms.Button btn_Elimiar;
-        private System.Windows.Forms.Button btn_Reporte;
         private System.Windows.Forms.Button btn_Salir;
         private System.Windows.Forms.TextBox txt_Producto_dc;
         private System.Windows.Forms.Label lbl_Producto;
@@ -897,6 +901,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridView dgv_Empaque;
         private System.Windows.Forms.Button btn_LupaEmpaque;
+        private System.Windows.Forms.Button btn_Reporte;
     }
 }
 

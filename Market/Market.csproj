@@ -33,6 +33,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -79,6 +97,30 @@
     </Compile>
     <Compile Include="frm_EntradaProducto.Designer.cs">
       <DependentUpon>frm_EntradaProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Reporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Reporte.Designer.cs">
+      <DependentUpon>frm_Reporte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_ReporteHistorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_ReporteHistorial.Designer.cs">
+      <DependentUpon>frm_ReporteHistorial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_ReporteVendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_ReporteVendedor.Designer.cs">
+      <DependentUpon>frm_ReporteVendedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_ReporteVentaRango.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_ReporteVentaRango.Designer.cs">
+      <DependentUpon>frm_ReporteVentaRango.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_ResumenTurno.cs">
       <SubType>Form</SubType>
@@ -148,6 +190,42 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\DataSetMarket.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetMarket.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frm_HistorialCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\frm_HistorialCompra.Designer.cs">
+      <DependentUpon>frm_HistorialCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frm_ListaProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\frm_ListaProducto.Designer.cs">
+      <DependentUpon>frm_ListaProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frm_ReportePorRango.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\frm_ReportePorRango.Designer.cs">
+      <DependentUpon>frm_ReportePorRango.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frm_ReportePorVendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\frm_ReportePorVendedor.Designer.cs">
+      <DependentUpon>frm_ReportePorVendedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frm_ReporteStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\frm_ReporteStock.Designer.cs">
+      <DependentUpon>frm_ReporteStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="frm_Dashboard.resx">
       <DependentUpon>frm_Dashboard.cs</DependentUpon>
     </EmbeddedResource>
@@ -162,6 +240,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_EntradaProducto.resx">
       <DependentUpon>frm_EntradaProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Reporte.resx">
+      <DependentUpon>frm_Reporte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_ReporteHistorial.resx">
+      <DependentUpon>frm_ReporteHistorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_ReporteVendedor.resx">
+      <DependentUpon>frm_ReporteVendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_ReporteVentaRango.resx">
+      <DependentUpon>frm_ReporteVentaRango.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_ResumenTurno.resx">
       <DependentUpon>frm_ResumenTurno.cs</DependentUpon>
@@ -205,6 +295,27 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Reportes\frm_HistorialCompra.resx">
+      <DependentUpon>frm_HistorialCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\frm_ListaProducto.resx">
+      <DependentUpon>frm_ListaProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\frm_ReportePorRango.resx">
+      <DependentUpon>frm_ReportePorRango.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\frm_ReportePorVendedor.resx">
+      <DependentUpon>frm_ReportePorVendedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\frm_ReporteStock.resx">
+      <DependentUpon>frm_ReporteStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\ReporteHistorialCompra.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteListaProducto.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportePorRango.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteStock.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteVentaVendedor.rdlc" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -214,6 +325,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Reportes\DataSetMarket.xsc">
+      <DependentUpon>DataSetMarket.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\DataSetMarket.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetMarket.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reportes\DataSetMarket.xss">
+      <DependentUpon>DataSetMarket.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -227,6 +349,21 @@
       <Project>{cf05a23f-a179-48f3-9d15-aa27567f07b1}</Project>
       <Name>Negocio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

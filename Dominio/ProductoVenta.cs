@@ -10,6 +10,8 @@ namespace Dominio
     {
         public int id { get; set; }
         public Marca marca { get; set; }
+        public StockProducto stock {  get; set; }
+        public decimal stock_Min { get; set; }
         public string descripcion { get; set; }
         public decimal precioDia { get; set; }
         public decimal precioNoche { get; set; }

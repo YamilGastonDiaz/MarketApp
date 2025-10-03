@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Dashboard));
             this.pnl_Menu = new System.Windows.Forms.Panel();
-            this.pnl_Salir = new System.Windows.Forms.Panel();
-            this.btn_Salir = new System.Windows.Forms.Button();
             this.pnl_Proceso = new System.Windows.Forms.Panel();
             this.btn_Venta = new System.Windows.Forms.Button();
             this.btn_Compra = new System.Windows.Forms.Button();
@@ -57,20 +55,26 @@
             this.lbl_TipoUser = new System.Windows.Forms.Label();
             this.pnl_Detalles = new System.Windows.Forms.Panel();
             this.timer_Sistema = new System.Windows.Forms.Timer(this.components);
+            this.pnl_Reporte = new System.Windows.Forms.Panel();
+            this.btn_Reporte = new System.Windows.Forms.Button();
+            this.pnl_Salir = new System.Windows.Forms.Panel();
+            this.btn_Salir = new System.Windows.Forms.Button();
             this.pnl_Menu.SuspendLayout();
-            this.pnl_Salir.SuspendLayout();
             this.pnl_Proceso.SuspendLayout();
             this.pnl_DatosMaestros.SuspendLayout();
             this.pnl_Logo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbox_Imagen)).BeginInit();
             this.pnl_Titulo.SuspendLayout();
             this.pnl_Estado.SuspendLayout();
+            this.pnl_Reporte.SuspendLayout();
+            this.pnl_Salir.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_Menu
             // 
             this.pnl_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
             this.pnl_Menu.Controls.Add(this.pnl_Salir);
+            this.pnl_Menu.Controls.Add(this.pnl_Reporte);
             this.pnl_Menu.Controls.Add(this.pnl_Proceso);
             this.pnl_Menu.Controls.Add(this.btn_Procesos);
             this.pnl_Menu.Controls.Add(this.pnl_DatosMaestros);
@@ -81,32 +85,6 @@
             this.pnl_Menu.Name = "pnl_Menu";
             this.pnl_Menu.Size = new System.Drawing.Size(200, 739);
             this.pnl_Menu.TabIndex = 0;
-            // 
-            // pnl_Salir
-            // 
-            this.pnl_Salir.Controls.Add(this.btn_Salir);
-            this.pnl_Salir.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl_Salir.Location = new System.Drawing.Point(0, 571);
-            this.pnl_Salir.Name = "pnl_Salir";
-            this.pnl_Salir.Size = new System.Drawing.Size(200, 46);
-            this.pnl_Salir.TabIndex = 15;
-            // 
-            // btn_Salir
-            // 
-            this.btn_Salir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
-            this.btn_Salir.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_Salir.FlatAppearance.BorderSize = 0;
-            this.btn_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Salir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_Salir.Image = ((System.Drawing.Image)(resources.GetObject("btn_Salir.Image")));
-            this.btn_Salir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Salir.Location = new System.Drawing.Point(0, 0);
-            this.btn_Salir.Name = "btn_Salir";
-            this.btn_Salir.Size = new System.Drawing.Size(200, 45);
-            this.btn_Salir.TabIndex = 3;
-            this.btn_Salir.Text = "SALIR";
-            this.btn_Salir.UseVisualStyleBackColor = false;
-            this.btn_Salir.Click += new System.EventHandler(this.btn_Salir_Click);
             // 
             // pnl_Proceso
             // 
@@ -435,6 +413,58 @@
             this.timer_Sistema.Enabled = true;
             this.timer_Sistema.Tick += new System.EventHandler(this.timer_Sistema_Tick);
             // 
+            // pnl_Reporte
+            // 
+            this.pnl_Reporte.Controls.Add(this.btn_Reporte);
+            this.pnl_Reporte.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnl_Reporte.Location = new System.Drawing.Point(0, 571);
+            this.pnl_Reporte.Name = "pnl_Reporte";
+            this.pnl_Reporte.Size = new System.Drawing.Size(200, 46);
+            this.pnl_Reporte.TabIndex = 18;
+            // 
+            // btn_Reporte
+            // 
+            this.btn_Reporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+            this.btn_Reporte.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_Reporte.FlatAppearance.BorderSize = 0;
+            this.btn_Reporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Reporte.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_Reporte.Image = ((System.Drawing.Image)(resources.GetObject("btn_Reporte.Image")));
+            this.btn_Reporte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Reporte.Location = new System.Drawing.Point(0, 0);
+            this.btn_Reporte.Name = "btn_Reporte";
+            this.btn_Reporte.Size = new System.Drawing.Size(200, 45);
+            this.btn_Reporte.TabIndex = 18;
+            this.btn_Reporte.Text = "REPORTES";
+            this.btn_Reporte.UseVisualStyleBackColor = false;
+            this.btn_Reporte.Click += new System.EventHandler(this.btn_Reporte_Click);
+            // 
+            // pnl_Salir
+            // 
+            this.pnl_Salir.Controls.Add(this.btn_Salir);
+            this.pnl_Salir.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnl_Salir.Location = new System.Drawing.Point(0, 617);
+            this.pnl_Salir.Name = "pnl_Salir";
+            this.pnl_Salir.Size = new System.Drawing.Size(200, 46);
+            this.pnl_Salir.TabIndex = 19;
+            // 
+            // btn_Salir
+            // 
+            this.btn_Salir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(62)))), ((int)(((byte)(70)))));
+            this.btn_Salir.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_Salir.FlatAppearance.BorderSize = 0;
+            this.btn_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Salir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_Salir.Image = ((System.Drawing.Image)(resources.GetObject("btn_Salir.Image")));
+            this.btn_Salir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Salir.Location = new System.Drawing.Point(0, 0);
+            this.btn_Salir.Name = "btn_Salir";
+            this.btn_Salir.Size = new System.Drawing.Size(200, 45);
+            this.btn_Salir.TabIndex = 5;
+            this.btn_Salir.Text = "SALIR";
+            this.btn_Salir.UseVisualStyleBackColor = false;
+            this.btn_Salir.Click += new System.EventHandler(this.btn_Salir_Click);
+            // 
             // frm_Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -451,7 +481,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frm_Dashboard_Load);
             this.pnl_Menu.ResumeLayout(false);
-            this.pnl_Salir.ResumeLayout(false);
             this.pnl_Proceso.ResumeLayout(false);
             this.pnl_DatosMaestros.ResumeLayout(false);
             this.pnl_Logo.ResumeLayout(false);
@@ -460,6 +489,8 @@
             this.pnl_Titulo.PerformLayout();
             this.pnl_Estado.ResumeLayout(false);
             this.pnl_Estado.PerformLayout();
+            this.pnl_Reporte.ResumeLayout(false);
+            this.pnl_Salir.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -482,8 +513,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_Proveedor;
-        private System.Windows.Forms.Panel pnl_Salir;
-        private System.Windows.Forms.Button btn_Salir;
         private System.Windows.Forms.Panel pnl_Proceso;
         private System.Windows.Forms.Button btn_Venta;
         private System.Windows.Forms.Button btn_Compra;
@@ -493,5 +522,9 @@
         private System.Windows.Forms.Label lbl_Fecha;
         private System.Windows.Forms.Label lbl_Hora;
         private System.Windows.Forms.Timer timer_Sistema;
+        private System.Windows.Forms.Panel pnl_Salir;
+        private System.Windows.Forms.Button btn_Salir;
+        private System.Windows.Forms.Panel pnl_Reporte;
+        private System.Windows.Forms.Button btn_Reporte;
     }
 }

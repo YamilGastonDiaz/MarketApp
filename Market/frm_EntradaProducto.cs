@@ -25,10 +25,17 @@ namespace Market
         private List<Proveedor> proveedorLista;
         private List<Compra> compraLista;
         private int proveedorSeleccionadoId = 0;
+        private const string PlaceholderTexto = "INGRESE NOMBRE";
+        private const string PlaceholderTexto1 = "INGRESE DESCRIPCION";
+        private const string PlaceholderTexto2 = "INGRESE EMPRESA";
 
         public frm_EntradaProducto()
         {
             InitializeComponent();
+            TextBoxPlaceholder.SetPlaceholder(txt_Buscar, PlaceholderTexto);
+            TextBoxPlaceholder.SetPlaceholder(txt_Producto, PlaceholderTexto1);
+            TextBoxPlaceholder.SetPlaceholder(txt_ProveedorB, PlaceholderTexto2);
+
             txt_Buscar.CharacterCasing = CharacterCasing.Upper;
             txt_Producto.CharacterCasing = CharacterCasing.Upper;
             txt_ProveedorB.CharacterCasing = CharacterCasing.Upper;
@@ -57,7 +64,6 @@ namespace Market
         {
             btn_Nuevo.Enabled = estado;
             btn_Elimiar.Enabled = estado;
-            btn_Reporte.Enabled = estado;
             btn_Salir.Enabled = estado;
         }
 
@@ -225,10 +231,10 @@ namespace Market
             TablaDetalle.Columns.Add("descripcion_P", typeof(string));
             TablaDetalle.Columns.Add("id_Marca", typeof(string));
             TablaDetalle.Columns.Add("descripcion_M", typeof(string));
-            TablaDetalle.Columns.Add("Empaque", typeof(string)); // 👈 Nueva columna visible
+            TablaDetalle.Columns.Add("Empaque", typeof(string)); 
             TablaDetalle.Columns.Add("TotalEmpaque", typeof(decimal));
             TablaDetalle.Columns.Add("Cantidad", typeof(decimal));
-            TablaDetalle.Columns.Add("Stock", typeof(decimal));    // 👈 Calculado
+            TablaDetalle.Columns.Add("Stock", typeof(decimal));   
             TablaDetalle.Columns.Add("PrecioCompra", typeof(decimal));
             TablaDetalle.Columns.Add("Subtotal", typeof(decimal));
 
@@ -520,17 +526,46 @@ namespace Market
 
         private void btn_Buscar_Click(object sender, EventArgs e)
         {
-            dgv_Principal.DataSource = negocioCompra.BuscarPorNombre(txt_Buscar.Text);
+            string texto = txt_Buscar.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto)
+            {
+                CargarLista();
+                return;
+            }
+            else 
+            {
+                dgv_Principal.DataSource = negocioCompra.BuscarPorNombre(texto);
+            }
         }
 
         private void btn_BuscarPR_Click(object sender, EventArgs e)
         {
-            dgv_Producto.DataSource = negocioProducto.BuscarPorDescripcion(txt_Producto.Text);            
+            string texto = txt_Producto.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto1)
+            {
+                CargarListaProducto();
+                return;
+            }
+            else
+            {
+                dgv_Producto.DataSource = negocioProducto.BuscarPorDescripcion(texto);
+            }   
         }
 
         private void btn_BuscarP1_Click(object sender, EventArgs e)
         {
-            dgv_Proveedor.DataSource = negocioProveedor.BuscarPorEmpresa(txt_ProveedorB.Text);
+            string texto = txt_ProveedorB.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto2)
+            {
+                CargarListaProveedor();
+            }
+            else 
+            {
+                dgv_Proveedor.DataSource = negocioProveedor.BuscarPorEmpresa(texto);
+            }
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)

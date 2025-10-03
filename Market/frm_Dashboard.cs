@@ -115,16 +115,21 @@ namespace Market
             OpenFormulario(new frm_VentaRegistrada());
         }
 
-        private void btn_Salir_Click(object sender, EventArgs e)
+        private void btn_Reporte_Click(object sender, EventArgs e)
         {
-            SessionActual.CerrarSession();
-            Close();
+            OpenFormulario(new frm_Reporte());
         }
 
         private void timer_Sistema_Tick(object sender, EventArgs e)
         {
             lbl_Fecha.Text = DateTime.Now.ToLongDateString();
             lbl_Hora.Text = DateTime.Now.ToLongTimeString();
+        }
+
+        private void btn_Salir_Click(object sender, EventArgs e)
+        {
+            SessionActual.CerrarSession();
+            Close();
         }
     }
 }

@@ -32,10 +32,15 @@ namespace Market
         decimal precioN = 0;
         private bool editar = false;
         private int idEditar = 0;
+        private const string PlaceholderTexto = "INGRESE DESCRIPCION";
 
         public frm_Producto()
         {
             InitializeComponent();
+            TextBoxPlaceholder.SetPlaceholder(txt_Buscar, PlaceholderTexto);
+            TextBoxPlaceholder.SetPlaceholder(txt_BuscarC, PlaceholderTexto);
+            TextBoxPlaceholder.SetPlaceholder(txt_BuscarM, PlaceholderTexto);
+            TextBoxPlaceholder.SetPlaceholder(txt_BuscarE, PlaceholderTexto);
             txt_Producto_dc.CharacterCasing = CharacterCasing.Upper;
             txt_Buscar.CharacterCasing = CharacterCasing.Upper;
             txt_BuscarC.CharacterCasing = CharacterCasing.Upper;
@@ -74,7 +79,6 @@ namespace Market
             btn_Nuevo.Enabled = estado;
             btn_Actualizar.Enabled = estado;
             btn_Elimiar.Enabled = estado;
-            btn_Reporte.Enabled = estado;
             btn_Salir.Enabled = estado;
         }
 
@@ -415,22 +419,62 @@ namespace Market
 
         private void btn_Buscar_Click(object sender, EventArgs e)
         {
-            dgv_Principal.DataSource = negocioProducto.BuscarPorDescripcion(txt_Buscar.Text);
+            string texto = txt_Buscar.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto)
+            {
+                CargarLista();
+                return;
+            }
+            else
+            {
+                dgv_Principal.DataSource = negocioProducto.BuscarPorDescripcion(texto);
+            }
         }
 
         private void btn_BuscarC1_Click(object sender, EventArgs e)
         {
-            dgv_Categorias.DataSource = negocioCategoria.BuscarPorDescripcion(txt_BuscarC.Text);
+            string texto = txt_BuscarC.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto)
+            {
+                CargarListaCategoria();
+                return;
+            }
+            else
+            {
+                dgv_Categorias.DataSource = negocioCategoria.BuscarPorDescripcion(texto);
+            }
         }
 
         private void btn_BuscarM1_Click(object sender, EventArgs e)
         {
-            dgv_Marcas.DataSource = negocioMarca.BuscarPorDescripcion(txt_BuscarM.Text);
+            string texto = txt_BuscarM.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto)
+            {
+                CargarListaMarca();
+                return;
+            }
+            else
+            {
+                dgv_Marcas.DataSource = negocioMarca.BuscarPorDescripcion(texto);
+            }
         }
 
         private void btn_BuscarE1_Click(object sender, EventArgs e)
         {
-            dgv_Empaque.DataSource = negocioEmpaque.BuscarPorDescripcion(txt_BuscarE.Text);
+            string texto = txt_BuscarE.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto) || texto == PlaceholderTexto)
+            {
+                CargarListaEmpaque();
+                return;
+            }
+            else 
+            {
+                dgv_Empaque.DataSource = negocioEmpaque.BuscarPorDescripcion(texto);
+            }
         }
 
         private void btn_Salir_Click(object sender, EventArgs e)
@@ -445,6 +489,12 @@ namespace Market
                 if (negocioProducto.ExisteCodigoBarras(txt_CodigoBarra.Text))
                     MessageBox.Show("El codigo de barra ingresado ya se encuentra registrado", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btn_Reporte_Click(object sender, EventArgs e)
+        {
+            Reportes.frm_ListaProducto rptLista = new Reportes.frm_ListaProducto();
+            rptLista.ShowDialog();
         }
     }
 }

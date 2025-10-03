@@ -76,7 +76,7 @@
             this.lbl_Recaudacion.AutoSize = true;
             this.lbl_Recaudacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Recaudacion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbl_Recaudacion.Location = new System.Drawing.Point(160, 93);
+            this.lbl_Recaudacion.Location = new System.Drawing.Point(156, 89);
             this.lbl_Recaudacion.Name = "lbl_Recaudacion";
             this.lbl_Recaudacion.Size = new System.Drawing.Size(391, 55);
             this.lbl_Recaudacion.TabIndex = 9;
