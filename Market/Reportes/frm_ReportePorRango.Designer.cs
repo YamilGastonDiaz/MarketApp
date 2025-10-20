@@ -30,13 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.dataSetMarket = new Market.Reportes.DataSetMarket();
             this.reporteVentasPorRangoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSetMarket = new Market.Reportes.DataSetMarket();
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.reporteVentasPorRangoTableAdapter = new Market.Reportes.DataSetMarketTableAdapters.ReporteVentasPorRangoTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSetMarket)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reporteVentasPorRangoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSetMarket)).BeginInit();
             this.SuspendLayout();
+            // 
+            // reporteVentasPorRangoBindingSource
+            // 
+            this.reporteVentasPorRangoBindingSource.DataMember = "ReporteVentasPorRango";
+            this.reporteVentasPorRangoBindingSource.DataSource = this.dataSetMarket;
+            // 
+            // dataSetMarket
+            // 
+            this.dataSetMarket.DataSetName = "DataSetMarket";
+            this.dataSetMarket.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // reportViewer1
             // 
@@ -44,22 +54,12 @@
             reportDataSource1.Name = "DataSet1";
             reportDataSource1.Value = this.reporteVentasPorRangoBindingSource;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Market.Reportes.ReporteVentaVendedor.rdlc";
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Market.Reportes.ReportePorRango.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
             this.reportViewer1.Size = new System.Drawing.Size(712, 342);
             this.reportViewer1.TabIndex = 0;
-            // 
-            // dataSetMarket
-            // 
-            this.dataSetMarket.DataSetName = "DataSetMarket";
-            this.dataSetMarket.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // reporteVentasPorRangoBindingSource
-            // 
-            this.reporteVentasPorRangoBindingSource.DataMember = "ReporteVentasPorRango";
-            this.reporteVentasPorRangoBindingSource.DataSource = this.dataSetMarket;
             // 
             // reporteVentasPorRangoTableAdapter
             // 
@@ -79,8 +79,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "REPORTE POR RANFO FECHA";
             this.Load += new System.EventHandler(this.frm_ReportePorRango_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataSetMarket)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reporteVentasPorRangoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSetMarket)).EndInit();
             this.ResumeLayout(false);
 
         }

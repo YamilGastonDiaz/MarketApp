@@ -426,7 +426,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>REPORTE VENTA POR FECHA</Value>
+                  <Value>LISTA DE PRODUCTOS</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
