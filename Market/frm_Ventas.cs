@@ -358,6 +358,8 @@ namespace Market
 
             decimal total = Convert.ToDecimal(txt_Total.Text);
 
+            DataTable tablaSP = ConvertirTablaParaSP(TablaDetalle);
+
             NegocioMercadoPagoQR negocioQR = new NegocioMercadoPagoQR();
             string referencia = $"venta_{DateTime.Now.Ticks}";
 
@@ -365,8 +367,14 @@ namespace Market
             {
                 string qrData = negocioQR.CrearQR(total, referencia);
 
-                frm_PagoQR frmQR = new frm_PagoQR(qrData, total);
+                frm_PagoQR frmQR = new frm_PagoQR(qrData, total, referencia, tablaSP);
                 frmQR.ShowDialog();
+
+                if (frmQR.ShowDialog() == DialogResult.OK)
+                {
+                    TablaDetalle.Rows.Clear();
+                    txt_Total.Text = "";
+                }
             }
             catch (Exception ex)
             {

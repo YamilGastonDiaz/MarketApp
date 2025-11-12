@@ -55,9 +55,10 @@ namespace Negocio
             return jsonResponse.qr_data;
         }
 
-        public string ConsultarEstadoPago(string ordenId) 
+        public string ConsultarEstadoPago(string referencia) 
         {
-            string url = $"https://api.mercadopago.com/merchant_orders/{ordenId}";
+            string url = $"https://api.mercadopago.com/merchant_orders/search?external_reference={referencia}";
+
 
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -70,10 +71,17 @@ namespace Negocio
 
             dynamic jsonResponse = JsonConvert.DeserializeObject(result);
 
-            if (jsonResponse["payments"] == null || jsonResponse["results"].Count == 0)
+            if (jsonResponse["elements"] == null || jsonResponse["elements"].Count == 0)
                 return "pending"; // aún no hay pago
 
-            string estado = jsonResponse["results"][0]["status"];
+            var order = jsonResponse["elements"][0];
+
+            // Validamos si hay pagos dentro de la orden
+            if (order["payments"] == null || order["payments"].Count == 0)
+                return order["status"]?.ToString() ?? "pending";
+
+
+            string estado = order["payments"][0]["status"]?.ToString() ?? "pending";
             return estado; // puede ser: pending, approved, rejected, in_process, etc.
         }
     }    

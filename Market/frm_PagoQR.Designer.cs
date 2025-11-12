@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_PagoQR));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lblMonto = new System.Windows.Forms.Label();
             this.picQR = new System.Windows.Forms.PictureBox();
+            this.lblMonto = new System.Windows.Forms.Label();
+            this.timerEstado = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -53,16 +55,16 @@
             this.panel1.Size = new System.Drawing.Size(685, 87);
             this.panel1.TabIndex = 7;
             // 
-            // label1
+            // label2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(252, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(190, 37);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "EL NEGRO";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(283, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(121, 16);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "- DRUGSTORE -";
             // 
             // pictureBox1
             // 
@@ -75,16 +77,16 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // label2
+            // label1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(283, 46);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "- DRUGSTORE -";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(252, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(190, 37);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "EL NEGRO";
             // 
             // panel2
             // 
@@ -94,6 +96,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(661, 397);
             this.panel2.TabIndex = 8;
+            // 
+            // picQR
+            // 
+            this.picQR.Location = new System.Drawing.Point(146, 54);
+            this.picQR.Name = "picQR";
+            this.picQR.Size = new System.Drawing.Size(374, 323);
+            this.picQR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picQR.TabIndex = 4;
+            this.picQR.TabStop = false;
             // 
             // lblMonto
             // 
@@ -106,14 +117,9 @@
             this.lblMonto.TabIndex = 3;
             this.lblMonto.Text = "MONTO";
             // 
-            // picQR
+            // timerEstado
             // 
-            this.picQR.Location = new System.Drawing.Point(146, 54);
-            this.picQR.Name = "picQR";
-            this.picQR.Size = new System.Drawing.Size(374, 323);
-            this.picQR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picQR.TabIndex = 4;
-            this.picQR.TabStop = false;
+            this.timerEstado.Tick += new System.EventHandler(this.timerEstado_Tick);
             // 
             // frm_PagoQR
             // 
@@ -149,5 +155,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox picQR;
         private System.Windows.Forms.Label lblMonto;
+        private System.Windows.Forms.Timer timerEstado;
     }
 }
