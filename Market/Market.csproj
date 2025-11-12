@@ -53,6 +53,9 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.7.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
@@ -85,6 +88,12 @@
     </Compile>
     <Compile Include="frm_Login.Designer.cs">
       <DependentUpon>frm_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_PagoQR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_PagoQR.Designer.cs">
+      <DependentUpon>frm_PagoQR.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_Proveedor.cs">
       <SubType>Form</SubType>
@@ -234,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Login.resx">
       <DependentUpon>frm_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_PagoQR.resx">
+      <DependentUpon>frm_PagoQR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Proveedor.resx">
       <DependentUpon>frm_Proveedor.cs</DependentUpon>

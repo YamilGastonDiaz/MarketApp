@@ -11,27 +11,30 @@ namespace Negocio
 {
     public class NegocioMercadoPagoQR
     {
-        private readonly string accessToken = "TU_ACCESS_TOKEN"; // Reemplazá por el tuyo
-        private readonly string userId = "TU_USER_ID";            // Lo obtenés del panel de Mercado Pago
-        private readonly string posId = "TU_POS_ID";              // El ID del punto de venta creado
+        private readonly string accessToken = "APP_USR-6093676824884938-110516-5b0b3c61f6eea604e72a13e285f8790d-2175041084";
+        private readonly string userId = "2175041084";
+        private readonly string external_pos_id = "CAJA001";
 
         public string CrearQR(decimal total, string referencia_idVenta)
         {
-            string url = $"https://api.mercadopago.com/instore/orders/qr/seller/collectors/{userId}/pos/{posId}/qrs";
+            string url = $"https://api.mercadopago.com/instore/orders/qr/seller/collectors/{userId}/pos/{external_pos_id}/qrs";
 
             var body = new
             {
                 external_reference = referencia_idVenta,
-                title = "Pago QR desde App",
-                total_amount = total,
+                title = "Venta mostrador",
+                description = "Pago en caja",
+                total_amount = Math.Round(total, 2),
                 items = new[]
                 {
-                    new {
-                        title = "Pago desde app",
-                        unit_price = total,
-                        quantity = 1
-                    }
+                new {
+                    title = "Compra general",
+                    quantity = 1,
+                    unit_price = Math.Round(total, 2),
+                    unit_measure = "unit",
+                    total_amount = Math.Round(total, 2)
                 }
+            }
             };
 
             var client = new HttpClient();
@@ -41,15 +44,38 @@ namespace Negocio
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = client.PostAsync(url, content).Result;
+            var result = response.Content.ReadAsStringAsync().Result;
 
             if (!response.IsSuccessStatusCode)
-                throw new Exception("Error al generar QR: " + response.Content.ReadAsStringAsync().Result);
+                throw new Exception("Error al generar QR: " + result);
 
             var responseString = response.Content.ReadAsStringAsync().Result;
             dynamic jsonResponse = JsonConvert.DeserializeObject(responseString);
 
             return jsonResponse.qr_data;
         }
-    }
+
+        public string ConsultarEstadoPago(string ordenId) 
+        {
+            string url = $"https://api.mercadopago.com/merchant_orders/{ordenId}";
+
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var response = client.GetAsync(url).Result;
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Error al consultar pago: " + result);
+
+            dynamic jsonResponse = JsonConvert.DeserializeObject(result);
+
+            if (jsonResponse["payments"] == null || jsonResponse["results"].Count == 0)
+                return "pending"; // aún no hay pago
+
+            string estado = jsonResponse["results"][0]["status"];
+            return estado; // puede ser: pending, approved, rejected, in_process, etc.
+        }
+    }    
 }
  

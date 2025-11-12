@@ -303,6 +303,10 @@ namespace Market
                     Foco();
                 }
             }
+
+            txt_Efectivo.Text = "";
+            txt_Vuelto.Text = "";
+            txt_Total.Text = "";
         }
 
         private void btn_PagoEfectivo_Click(object sender, EventArgs e)
@@ -340,7 +344,34 @@ namespace Market
 
         private void btn_PagoQr_Click(object sender, EventArgs e)
         {
+            if (TablaDetalle.Rows.Count == 0)
+            {
+                MessageBox.Show("Debe agregar al menos un producto al detalle.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            if (string.IsNullOrWhiteSpace(txt_Total.Text) || Convert.ToDecimal(txt_Total.Text) <= 0)
+            {
+                MessageBox.Show("El total no puede estar vacío o en cero.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            decimal total = Convert.ToDecimal(txt_Total.Text);
+
+            NegocioMercadoPagoQR negocioQR = new NegocioMercadoPagoQR();
+            string referencia = $"venta_{DateTime.Now.Ticks}";
+
+            try
+            {
+                string qrData = negocioQR.CrearQR(total, referencia);
+
+                frm_PagoQR frmQR = new frm_PagoQR(qrData, total);
+                frmQR.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private DataTable ConvertirTablaParaSP(DataTable tablaDetalle)
