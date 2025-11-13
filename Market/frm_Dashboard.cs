@@ -47,6 +47,7 @@ namespace Market
             lbl_TipoUser.Visible = true;
             pnl_DatosMaestros.Visible = false;
             pnl_Proceso.Visible = false;
+            pnl_Reporte.Visible = false;
         }
 
         private void btn_DatosMaestros_Click(object sender, EventArgs e)
@@ -60,6 +61,7 @@ namespace Market
                 pnl_DatosMaestros.Visible = false;
             }
             pnl_Proceso.Visible = false;
+            pnl_Reporte.Visible = false;
         }
 
         private void btn_Productos_Click(object sender, EventArgs e)
@@ -103,6 +105,7 @@ namespace Market
                 pnl_Proceso.Visible = false;
             }
             pnl_DatosMaestros.Visible = false;
+            pnl_Reporte.Visible = false;
         }
 
         private void btn_Compra_Click(object sender, EventArgs e)
@@ -117,7 +120,38 @@ namespace Market
 
         private void btn_Reporte_Click(object sender, EventArgs e)
         {
-            OpenFormulario(new frm_Reporte());
+            if (pnl_Reporte.Visible == false)
+            {
+                pnl_Reporte.Visible = true;
+            }
+            else
+            {
+                pnl_Reporte.Visible = false;
+            }
+            pnl_DatosMaestros.Visible = false;
+            pnl_Proceso.Visible = false;
+        }
+
+
+        private void btn_Reporte1_Click(object sender, EventArgs e)
+        {
+            Reportes.frm_ReporteStock rptStock = new Reportes.frm_ReporteStock();
+            rptStock.ShowDialog();
+        }
+
+        private void btn_Reporte2_Click(object sender, EventArgs e)
+        {
+            OpenFormulario(new frm_ReporteHistorial());
+        }
+
+        private void btn_Reporte3_Click(object sender, EventArgs e)
+        {
+            OpenFormulario(new frm_ReporteVentaRango());
+        }
+
+        private void btn_Reporte4_Click(object sender, EventArgs e)
+        {
+            OpenFormulario(new frm_ReporteVendedor());
         }
 
         private void timer_Sistema_Tick(object sender, EventArgs e)
