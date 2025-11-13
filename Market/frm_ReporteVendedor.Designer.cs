@@ -32,10 +32,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Cerrar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbox_Usuario = new System.Windows.Forms.ComboBox();
             this.txt_Buscar = new System.Windows.Forms.Button();
             this.dtp_Desde = new System.Windows.Forms.DateTimePicker();
             this.dtp_Hasta = new System.Windows.Forms.DateTimePicker();
-            this.cbox_Usuario = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -56,9 +56,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(4, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(315, 20);
+            this.label1.Size = new System.Drawing.Size(387, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "REPORTES VENTA POR VENDEDOR";
+            this.label1.Text = "REPORTES RECAUDACION POR VENDEDOR";
             // 
             // btn_Cerrar
             // 
@@ -88,6 +88,15 @@
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "VENTAS VENDEDOR";
+            // 
+            // cbox_Usuario
+            // 
+            this.cbox_Usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbox_Usuario.FormattingEnabled = true;
+            this.cbox_Usuario.Location = new System.Drawing.Point(498, 61);
+            this.cbox_Usuario.Name = "cbox_Usuario";
+            this.cbox_Usuario.Size = new System.Drawing.Size(215, 24);
+            this.cbox_Usuario.TabIndex = 14;
             // 
             // txt_Buscar
             // 
@@ -119,15 +128,6 @@
             this.dtp_Hasta.Name = "dtp_Hasta";
             this.dtp_Hasta.Size = new System.Drawing.Size(215, 22);
             this.dtp_Hasta.TabIndex = 11;
-            // 
-            // cbox_Usuario
-            // 
-            this.cbox_Usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbox_Usuario.FormattingEnabled = true;
-            this.cbox_Usuario.Location = new System.Drawing.Point(498, 61);
-            this.cbox_Usuario.Name = "cbox_Usuario";
-            this.cbox_Usuario.Size = new System.Drawing.Size(215, 24);
-            this.cbox_Usuario.TabIndex = 14;
             // 
             // frm_ReporteVendedor
             // 

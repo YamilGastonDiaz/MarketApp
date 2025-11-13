@@ -55,9 +55,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(4, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(356, 20);
+            this.label1.Size = new System.Drawing.Size(428, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "REPORTES VENTA POR RANGO FECHAS";
+            this.label1.Text = "REPORTES RECAUDACION POR RANGO FECHAS";
             // 
             // dtp_Desde
             // 
