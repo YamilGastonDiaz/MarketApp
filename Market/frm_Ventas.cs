@@ -16,8 +16,18 @@ namespace Market
     {
         private NegocioVenta negocioVenta = new NegocioVenta();
         private NegocioTurno negocioTurno = new NegocioTurno();
-        private ProductoVenta producto = new ProductoVenta();
         private DataTable TablaDetalle;
+
+        private void SetNumericDefault(TextBox txt)
+        {
+            txt.Text = "0.00";
+        }
+
+        private void LimpiarCampos()
+        {
+            SetNumericDefault(txt_Efectivo);
+            SetNumericDefault(txt_Vuelto);
+        }
 
         private void Foco() 
         {
@@ -28,6 +38,16 @@ namespace Market
         public frm_Ventas()
         {
             InitializeComponent();
+
+            SetNumericDefault(txt_Efectivo);
+            SetNumericDefault(txt_Vuelto);
+            SetNumericDefault(txt_Total);
+
+            txt_Efectivo.KeyPress += SoloNumeros_KeyPress;
+            txt_Vuelto.KeyPress += SoloNumeros_KeyPress;
+
+            btn_PagoEfectivo.Enabled = false;
+            btn_PagoQr.Enabled = false;
         }
 
         private void frm_Ventas_Load(object sender, EventArgs e)
@@ -35,7 +55,10 @@ namespace Market
             Foco();
 
             CargarListaDetalle();
-                       
+
+            txt_Efectivo.TextChanged += txt_Efectivo_TextChanged;
+            txt_Total.TextChanged += txt_Total_TexChanged;
+
             if (SessionActual.userAcutual != null)
             {
                 try
@@ -71,8 +94,8 @@ namespace Market
             TablaDetalle.Columns.Add("Cantidad", typeof(decimal));
             TablaDetalle.Columns.Add("PrecioUnitario", typeof(decimal));
             TablaDetalle.Columns.Add("Subtotal", typeof(decimal));
-            TablaDetalle.Columns.Add("Stock_min", typeof(decimal)); // nuevo
-            TablaDetalle.Columns.Add("Stock_actual", typeof(decimal)); // nuevo
+            TablaDetalle.Columns.Add("Stock_min", typeof(decimal));
+            TablaDetalle.Columns.Add("Stock_actual", typeof(decimal));
 
             dgv_Principal.DataSource = TablaDetalle;
             FormatoDetalle();
@@ -202,11 +225,11 @@ namespace Market
 
         private void CalcularTotalDetalle()
         {
-            decimal totalImporte = 0;
+            decimal totalImporte = 0.00m;
 
             if (dgv_Principal.Rows.Count == 0)
             {
-                totalImporte = 0;
+                totalImporte = 0.00m;
             }
             else
             {
@@ -257,12 +280,25 @@ namespace Market
             decimal.TryParse(txt_Total.Text, out total);
             decimal.TryParse(txt_Efectivo.Text, out efectivo);
 
-            decimal vuelto = efectivo - total;
+            decimal diferencia = efectivo - total;
 
-            if (vuelto >= 0)
-                txt_Vuelto.Text = vuelto.ToString("0.00");
-            else
+            if (txt_Efectivo.Text == "" || efectivo == 0)
+            {
                 txt_Vuelto.Text = "0.00";
+                txt_Vuelto.ForeColor = Color.Gray;
+                return;
+            }
+
+            if (diferencia < 0)
+            {
+                txt_Vuelto.Text = "FALTAN " + Math.Abs(diferencia).ToString("0.00");
+                txt_Vuelto.ForeColor = Color.Red;
+            }
+            else
+            {
+                txt_Vuelto.Text = diferencia.ToString("0.00");
+                txt_Vuelto.ForeColor = Color.Green;
+            }
         }
 
         private void txt_Efectivo_KeyPress(object sender, KeyPressEventArgs e)
@@ -303,10 +339,74 @@ namespace Market
                     Foco();
                 }
             }
+            LimpiarCampos();
+        }
 
-            txt_Efectivo.Text = "";
-            txt_Vuelto.Text = "";
-            txt_Total.Text = "";
+        private bool ValidarPagoEfectivo()
+        {
+            if (!decimal.TryParse(txt_Total.Text, out decimal total) || total <= 0)
+            {
+                MessageBox.Show("El total no puede estar vacío o en cero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (!decimal.TryParse(txt_Efectivo.Text, out decimal efectivo))
+            {
+                MessageBox.Show("Ingrese un monto válido en efectivo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (efectivo < total)
+            {
+                MessageBox.Show("El efectivo no puede ser menor al total.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txt_Efectivo.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ValidarBotonPagar()
+        {
+            bool ok = true;
+
+            if (TablaDetalle.Rows.Count == 0)
+                ok = false;
+
+            if (!decimal.TryParse(txt_Total.Text, out decimal total) || total <= 0)
+                ok = false;
+
+            if (!decimal.TryParse(txt_Efectivo.Text, out decimal efectivo))
+                ok = false;
+
+            if (efectivo < total)
+                ok = false;
+
+            btn_PagoEfectivo.Enabled = ok;
+        }
+
+        private void ValidarBotonQr()
+        {
+            bool ok = true;
+
+            if (TablaDetalle.Rows.Count == 0)
+                ok = false;
+
+            if (!decimal.TryParse(txt_Total.Text, out decimal total) || total <= 0)
+                ok = false;
+
+            btn_PagoQr.Enabled = ok;
+        }
+
+        private void txt_Efectivo_TextChanged(object sender, EventArgs e)
+        {
+            CalcularVuelto();
+            ValidarBotonPagar();
+        }
+
+        private void txt_Total_TexChanged(object sender, EventArgs e)
+        {
+            ValidarBotonQr();
         }
 
         private void btn_PagoEfectivo_Click(object sender, EventArgs e)
@@ -317,11 +417,8 @@ namespace Market
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txt_Total.Text) || Convert.ToDecimal(txt_Total.Text) <= 0)
-            {
-                MessageBox.Show("El total no puede estar vacío o en cero.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (!ValidarPagoEfectivo())
                 return;
-            }
 
             Venta venta = new Venta();
             venta.usuario.id = SessionActual.userAcutual.id;
@@ -335,10 +432,8 @@ namespace Market
             MessageBox.Show("Venta registrada correctamente con ID: " + idVenta, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             TablaDetalle.Clear();
-            txt_Efectivo.Text = "";
-            txt_Vuelto.Text = "";
-            txt_Total.Text = "";
-           
+            LimpiarCampos();
+
             Foco();
         }
 
@@ -368,12 +463,12 @@ namespace Market
                 string qrData = negocioQR.CrearQR(total, referencia);
 
                 frm_PagoQR frmQR = new frm_PagoQR(qrData, total, referencia, tablaSP);
-                frmQR.ShowDialog();
 
                 if (frmQR.ShowDialog() == DialogResult.OK)
                 {
                     TablaDetalle.Rows.Clear();
-                    txt_Total.Text = "";
+                    SetNumericDefault(txt_Total);//cambio
+                    Foco();
                 }
             }
             catch (Exception ex)

@@ -113,6 +113,7 @@
             this.txt_Total.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Total.Location = new System.Drawing.Point(542, 397);
             this.txt_Total.Name = "txt_Total";
+            this.txt_Total.ReadOnly = true;
             this.txt_Total.Size = new System.Drawing.Size(250, 29);
             this.txt_Total.TabIndex = 3;
             // 

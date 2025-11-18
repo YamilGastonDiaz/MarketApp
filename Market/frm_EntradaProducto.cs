@@ -465,10 +465,15 @@ namespace Market
         {
             if (e.RowIndex < 0) return;
 
-            DataRow fila = (DataRow)TablaDetalle.Rows[e.RowIndex];
-            decimal cantidad = Convert.ToDecimal(fila["Cantidad"]);
-            decimal precio = Convert.ToDecimal(fila["PrecioCompra"]);
-            decimal totalEmpaque = Convert.ToDecimal(fila["TotalEmpaque"]);
+            DataRow fila = ((DataRowView)dgv_ListaDetalle.Rows[e.RowIndex].DataBoundItem).Row;
+
+            decimal cantidad = 0;
+            decimal precio = 0;
+            decimal totalEmpaque = 0;
+
+            decimal.TryParse(fila["Cantidad"]?.ToString(), out cantidad);
+            decimal.TryParse(fila["PrecioCompra"]?.ToString(), out precio);
+            decimal.TryParse(fila["TotalEmpaque"]?.ToString(), out totalEmpaque);
 
             fila["Subtotal"] = decimal.Round(cantidad * precio, 2).ToString("N2");
             fila["Stock"] = decimal.Round(cantidad * totalEmpaque, 2);
