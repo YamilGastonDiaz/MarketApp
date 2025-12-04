@@ -11,9 +11,9 @@ namespace Negocio
 {
     public class NegocioMercadoPagoQR
     {
-        private readonly string accessToken = "APP_USR-6093676824884938-110516-5b0b3c61f6eea604e72a13e285f8790d-2175041084";
-        private readonly string userId = "2175041084";
-        private readonly string external_pos_id = "CAJA001";
+        private readonly string accessToken = "";
+        private readonly string userId = "";
+        private readonly string external_pos_id = "";
 
         public string CrearQR(decimal total, string referencia_idVenta)
         {

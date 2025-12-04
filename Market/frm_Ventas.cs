@@ -467,7 +467,7 @@ namespace Market
                 if (frmQR.ShowDialog() == DialogResult.OK)
                 {
                     TablaDetalle.Rows.Clear();
-                    SetNumericDefault(txt_Total);//cambio
+                    SetNumericDefault(txt_Total);
                     Foco();
                 }
             }
