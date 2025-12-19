@@ -21,6 +21,7 @@ Aplicación de escritorio en C# Windows Forms que permite gestionar ventas en un
 - SQL Server
 - Mercado Pago API (QR)
 - Arquitectura en capas (Presentación, Negocio, Datos)
+- Para leer los codigos de barra utilice la App (Scan-IT to Office)
 
 ##  Capturas de pantalla
 ![Proyecto Market](https://github.com/user-attachments/assets/5a93d77f-2726-4308-a9fe-e0a77d8b9f61)
