@@ -25,3 +25,4 @@ Aplicación de escritorio en C# Windows Forms que permite gestionar ventas en un
 
 ##  Capturas de pantalla
 ![Proyecto Market](https://github.com/user-attachments/assets/5a93d77f-2726-4308-a9fe-e0a77d8b9f61)
+![Proyecto Market 1](https://github.com/user-attachments/assets/5a5132a6-477f-4506-a945-093fce35407b)
