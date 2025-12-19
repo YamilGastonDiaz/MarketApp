@@ -445,11 +445,11 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(522, 72);
+            this.label2.Location = new System.Drawing.Point(546, 72);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 16);
+            this.label2.Size = new System.Drawing.Size(119, 16);
             this.label2.TabIndex = 1;
-            this.label2.Text = "- DRUGSTORE -";
+            this.label2.Text = "- SIN NOMBRE -";
             // 
             // label1
             // 
@@ -458,9 +458,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(443, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(280, 55);
+            this.label1.Size = new System.Drawing.Size(335, 55);
             this.label1.TabIndex = 0;
-            this.label1.Text = "EL NEGRO";
+            this.label1.Text = "MINIMARKET";
             // 
             // lbl_Bienvenida
             // 

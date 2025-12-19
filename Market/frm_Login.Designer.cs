@@ -69,7 +69,7 @@
             this.pbox_img.Image = ((System.Drawing.Image)(resources.GetObject("pbox_img.Image")));
             this.pbox_img.Location = new System.Drawing.Point(46, 69);
             this.pbox_img.Name = "pbox_img";
-            this.pbox_img.Size = new System.Drawing.Size(104, 113);
+            this.pbox_img.Size = new System.Drawing.Size(100, 100);
             this.pbox_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pbox_img.TabIndex = 1;
             this.pbox_img.TabStop = false;
@@ -79,11 +79,11 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(62, 185);
+            this.label2.Location = new System.Drawing.Point(54, 176);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 13);
+            this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "EL NEGRO";
+            this.label2.Text = "MINIMARKET";
             // 
             // label3
             // 
